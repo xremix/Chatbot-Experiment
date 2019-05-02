@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/xremix/Chatbot-Experiment#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "request": "^2.88.0"
   }
 }
