@@ -1,6 +1,5 @@
 
 exports.getReply = function(customerMessage) {
-
   if (customerMessage.match(/(PR-[0-9]+)/i)){
     if(customerMessage.match(/(wie|viel|kostet|kosten|preis)/i)){
       return productPriceMessage();
@@ -9,6 +8,8 @@ exports.getReply = function(customerMessage) {
     }
   } else if(customerMessage.match(/(hallo|hi|hey)/i)) {
     return randomHello();
+  } else if(customerMessage.match(/(danke)/i)) {
+    return randomThankyou();
   } else {
     return helpMessage();
   }
@@ -17,6 +18,7 @@ exports.getReply = function(customerMessage) {
 function productPriceMessage(){
   return "Das Produkt kostet 3,99€. Für Neukunden gibt es einen Rabatt von 10%";
 }
+
 function productInformationMessage(){
   return "Das Produkt ist super... kaufe es doch einfach";
 }
@@ -27,6 +29,15 @@ function randomHello(){
     "Hallo, wie kann ich Dir weiter helfen?",
     "Was kann ich für Dich tun?",
     "Hallo, kann ich dir behilflich sein?"
+  ];
+
+  return answers[Math.floor(Math.random() * answers.length)];
+}
+
+function randomThankyou(){
+  var answers = [
+    "Gerne, kann ich sonst noch etwas für Dich tun?",
+    "Klar, ich bin immer für Dich da"
   ];
 
   return answers[Math.floor(Math.random() * answers.length)];
