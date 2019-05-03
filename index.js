@@ -17,7 +17,8 @@ app.get('/test', function (req, res) {
 app.get('/init', function (req, res) {
   res.send('Initialized Service with Telegram!');
 });
-app.get('/chatmessage', function (req, res) {
+
+app.get('/recievemessage', function (req, res) {
   telegram.getUpdates(process.env.TOKEN, process.env.WEBHOOKURL, function(){
     res.send('Done');
   });
