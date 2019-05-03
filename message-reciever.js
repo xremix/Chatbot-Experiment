@@ -12,9 +12,9 @@ exports.getReply = function(customerMessage, customerId) {
   if (customerMessage.match(/(PR-[0-9]+)/i)){
     var product = customerMessage.match(/(PR-[0-9]+)/i)[0];
     if(customerMessage.match(/(wie|viel|kostet|kosten|preis)/i)){
-      if(isCustomer(customerId) == null){
-        return askIfCustomer(customerId);
-      }
+      // if(isCustomer(customerId) == null){
+      //   return askIfCustomer(customerId);
+      // }
       return productPriceMessage(product, isCustomer(customerId));
     } else {
       return productInformationMessage(product);
@@ -49,7 +49,11 @@ function answerQuestion(customerId, customerMessage){
     if(!database.customerData[customerId]){
       database.customerData[customerId] = {};
     }
-    database.customerData[customerId].isCustomer = trure;
+    if (customerMessage.match(/(ja|jop|yes)/i)){
+      database.customerData[customerId].isCustomer = true;
+    }else{
+      database.customerData[customerId].isCustomer = false;
+    }
   }
 
 }
@@ -60,10 +64,10 @@ function askIfCustomer(customerId){
 }
 function productPriceMessage(product, isCustomer){
   if(!isCustomer){
-  return "Das Produkt kostet 3,99€. Für sie als Neukunden gibt es zusätzlich einen Rabatt von 10%";
-}else{
-  return "Das Produkt kostet 3,99€.";
-}
+    return "Das Produkt kostet 3,99€. Für sie als Neukunden gibt es zusätzlich einen Rabatt von 10%";
+  }else{
+    return "Das Produkt kostet 3,99€.";
+  }
 
 }
 
@@ -95,5 +99,6 @@ function helpMessage(){
   return `Leider konnte ich deine Frage nicht verstehen. Bitte versuche eine der folgenden Befehle
   -  Was kostet das Produkt PR-10010?
   -  Was ist das Produkt PR-10010?
+  - Dankeschön
   `;
 }
