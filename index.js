@@ -6,7 +6,7 @@ var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
 
-var version = '0.0.9';
+var version = '0.0.10';
 const dotenv = require('dotenv');
 dotenv.config();
 var port = process.env.PORT || 1337;
