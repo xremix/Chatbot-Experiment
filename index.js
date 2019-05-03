@@ -6,7 +6,7 @@ var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
 
-var version = '0.0.10';
+var version = '0.0.11';
 const dotenv = require('dotenv');
 dotenv.config();
 var port = process.env.PORT || 1337;
@@ -36,25 +36,25 @@ app.post('/recievemessage', function (req, res) {
   console.log(req.body);
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
-  var replyMessage = messageReciever.getReply(userMessage);
+  var replyMessage = messageReciever.getReply(userMessage, userId);
 
   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
     res.send(replyMessage);
   });
 
 });
-app.get('/recievemessage', function (req, res) {
-  console.log("Got a /recievemessage get request");
-  console.log(req.body);
-  var userMessage = req.body.message.text;
-  var userId = req.body.message.from.id;
-  var replyMessage = messageReciever.getReply(userMessage);
-
-  telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
-    res.send(replyMessage);
-  });
-
-});
+// app.get('/recievemessage', function (req, res) {
+//   console.log("Got a /recievemessage get request");
+//   console.log(req.body);
+//   var userMessage = req.body.message.text;
+//   var userId = req.body.message.from.id;
+//   var replyMessage = messageReciever.getReply(userMessage);
+//
+//   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
+//     res.send(replyMessage);
+//   });
+//
+// });
 
 // app.get('/readMessages', function (req, res) {
 //   telegram.getUpdates(process.env.TOKEN, process.env.WEBHOOKURL, function(){

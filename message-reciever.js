@@ -1,10 +1,23 @@
+var database = {
+  customerData: {},
+  openQuestions: { }
+};
 
-exports.getReply = function(customerMessage) {
+exports.getReply = function(customerMessage, customerId) {
+  if (hasOpenQuestion(customerId)){
+    if(answerQuestion(customerId, customerMessage)){
+      return thanksForAnswer();
+    }
+  }
   if (customerMessage.match(/(PR-[0-9]+)/i)){
+    var product = customerMessage.match(/(PR-[0-9]+)/i)[0];
     if(customerMessage.match(/(wie|viel|kostet|kosten|preis)/i)){
-      return productPriceMessage();
+      if(isCustomer(customerId) == null){
+        return askIfCustomer(customerId);
+      }
+      return productPriceMessage(product, isCustomer(customerId));
     } else {
-      return productInformationMessage();
+      return productInformationMessage(product);
     }
   } else if(customerMessage.match(/(hallo|hi|hey)/i)) {
     return randomHello();
@@ -15,11 +28,46 @@ exports.getReply = function(customerMessage) {
   }
 };
 
-function productPriceMessage(){
-  return "Das Produkt kostet 3,99€. Für Neukunden gibt es einen Rabatt von 10%";
+function thanksForAnswer(){
+  return "Danke für die Antwort";
 }
 
-function productInformationMessage(){
+function isCustomer(customerId){
+  if(database.customerData[customerId] === undefined || database.customerData[customerId] == null database.customerData[customerId].isCustomer == undefined || database.customerData[customerId].isCustomer == null){
+    return null;
+  }
+  return database.customerData[customerId];
+}
+
+function hasOpenQuestion(customerId){
+  return !!database.openQuestions[customerId];
+}
+
+function answerQuestion(customerId, customerMessage){
+  if(database.openQuestions[customerId] == 'isCustomer'){
+    database.openQuestions[customerId] = null;
+    if(!database.customerData[customerId]){
+      database.customerData[customerId] = {};
+    }
+    database.customerData[customerId].isCustomer = trure;
+  }
+
+}
+
+function askIfCustomer(customerId){
+  database.openQuestions[customerId] = 'isCustomer';
+  return "Sind sie Kunde?";
+}
+function productPriceMessage(product, isCustomer){
+  if(!isCustomer){
+  return "Das Produkt kostet 3,99€. Für sie als Neukunden gibt es zusätzlich einen Rabatt von 10%";
+}else{
+  return "Das Produkt kostet 3,99€.";
+}
+
+}
+
+function productInformationMessage(product){
   return "Das Produkt ist super... kaufe es doch einfach";
 }
 
