@@ -1,5 +1,6 @@
 var express = require('express');
 var telegram = require('./telegram');
+var messageReciever = require('./message-reciever');
 var app = express();
 
 const dotenv = require('dotenv');
@@ -19,11 +20,16 @@ app.get('/init', function (req, res) {
 });
 
 app.get('/recievemessage', function (req, res) {
-  telegram.getUpdates(process.env.TOKEN, process.env.WEBHOOKURL, function(){
-    res.send('Done');
-  });
-
+  var userMessage = req.body.message.text;
+  var replyMessage = messageReciever.getReply(userMessage);
+  res.send(replyMessage);
 });
+
+// app.get('/readMessages', function (req, res) {
+//   telegram.getUpdates(process.env.TOKEN, process.env.WEBHOOKURL, function(){
+//     res.send('Done');
+//   });
+// });
 
 app.listen(port, function () {
   console.log('Example app listening on port ' + port);

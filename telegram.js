@@ -1,5 +1,6 @@
 var request = require('request');
 // https://github.com/request/request
+// https://core.telegram.org/bots/api
 
 exports.setWebhook = function () {
   return Date();
