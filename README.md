@@ -13,6 +13,9 @@ This is a experiment and case study for a chatbot
 
 # Deploy
 
-To deploy the App to azure run
+The deployment of the demo project is going to be done automatically by using continuous delivery.
+
+### Alternate
+To deploy the App to azure manually run
 
 - `az webapp up -n NAMEDERAPP`
