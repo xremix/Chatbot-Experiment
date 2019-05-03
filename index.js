@@ -6,12 +6,13 @@ var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
 
+var version = '0.0.9';
 const dotenv = require('dotenv');
 dotenv.config();
 var port = process.env.PORT || 1337;
 
 app.get('/', function (req, res) {
-  res.send('Bot Service is up!');
+  res.send('Bot Service is up! You are seeing version v' + version);
 });
 
 app.get('/test', function (req, res) {
@@ -22,7 +23,7 @@ app.get('/test', function (req, res) {
 
 app.get('/init', function (req, res) {
   telegram.setWebhook(process.env.TOKEN, process.env.WEBHOOKURL, function(response, body){
-    res.send(body);  
+    res.send(body);
   });
 
 });
