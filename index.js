@@ -32,7 +32,19 @@ app.get('/init', function (req, res) {
 });
 
 app.post('/recievemessage', function (req, res) {
-  console.log("Got a /recievemessage request");
+  console.log("Got a /recievemessage post request");
+  console.log(req.body);
+  var userMessage = req.body.message.text;
+  var userId = req.body.message.from.id;
+  var replyMessage = messageReciever.getReply(userMessage);
+
+  telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
+    res.send(replyMessage);
+  });
+
+});
+app.get('/recievemessage', function (req, res) {
+  console.log("Got a /recievemessage get request");
   console.log(req.body);
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
