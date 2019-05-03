@@ -21,7 +21,10 @@ app.get('/test', function (req, res) {
 });
 
 app.get('/init', function (req, res) {
-  res.send('Initialized Service with Telegram!');
+  telegram.setWebhook(process.env.TOKEN, process.env.WEBHOOKURL, function(response, body){
+    res.send(body);  
+  });
+
 });
 
 app.post('/recievemessage', function (req, res) {
@@ -31,7 +34,7 @@ app.post('/recievemessage', function (req, res) {
   var replyMessage = messageReciever.getReply(userMessage);
 
   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
-    res.send(replyMessage);  
+    res.send(replyMessage);
   });
 
 });
