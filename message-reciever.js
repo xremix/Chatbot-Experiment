@@ -33,7 +33,7 @@ function thanksForAnswer(){
 }
 
 function isCustomer(customerId){
-  if(database.customerData[customerId] === undefined || database.customerData[customerId] == null database.customerData[customerId].isCustomer == undefined || database.customerData[customerId].isCustomer == null){
+  if(database.customerData[customerId] === undefined || database.customerData[customerId] == null ||  database.customerData[customerId].isCustomer === undefined || database.customerData[customerId].isCustomer === null){
     return null;
   }
   return database.customerData[customerId];
