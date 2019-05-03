@@ -12,16 +12,19 @@ dotenv.config();
 var port = process.env.PORT || 1337;
 
 app.get('/', function (req, res) {
+  console.log("Got a / request");
   res.send('Bot Service is up! You are seeing version v' + version);
 });
 
 app.get('/test', function (req, res) {
+  console.log("Got a /test request");
   telegram.getUpdates(process.env.TOKEN, function(){
     res.send('Done');
   });
 });
 
 app.get('/init', function (req, res) {
+  console.log("Got a /init request");
   telegram.setWebhook(process.env.TOKEN, process.env.WEBHOOKURL, function(response, body){
     res.send(body);
   });
@@ -29,6 +32,7 @@ app.get('/init', function (req, res) {
 });
 
 app.post('/recievemessage', function (req, res) {
+  console.log("Got a /recievemessage request");
   console.log(req.body);
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
