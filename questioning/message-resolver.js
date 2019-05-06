@@ -8,6 +8,7 @@ exports.getReply = function(body) {
   var answer = findcorrectAnswer(userMessage, navigateToCurrentQuestion());
   // Fallback to default questions
   if(!answer){
+    console.log("Trying to find answer through fallback");
     var startQuestions = require('./question-graph').questionGraph;
     answer = findcorrectAnswer(userMessage, startQuestions);
   }
