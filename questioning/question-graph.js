@@ -35,12 +35,12 @@ exports.questionGraph = [
     isAnswerTo: function(q){return q.match(/(hilfe|help)/i) && q.match(/(hilfe|help)/i)[0]},
     questions: []
   },{
-    answerText: function(q){return answers.randomHello()},
-    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0] && !q.match(/(hilfe|help)/i)},
+    answerText: function(q){return answers.randomHowAreYou()},
+    isAnswerTo: function(q){return q.match(/wie.*geht(s|.*dir)/i)},
     questions: []
   },{
-    answerText: function(q){return answers.randomHowAreYou()},
-    isAnswerTo: function(q){return q.match(/wie.*geht.*dir/i)},
+    answerText: function(q){return answers.randomHello()},
+    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0] && !q.match(/(hilfe|help)/i)},
     questions: []
   },{
     answerText: function(q){return answers.randomThankyou()},
