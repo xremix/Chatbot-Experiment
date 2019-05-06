@@ -1,66 +1,29 @@
-var path = [];
-      var question = "I want to know about product Kugelschreiber"
-      var questions = [
-        {
-          index: 0,
-          answerText: "Hello",
-          validator: function(){return false},
-          questions: [
-
-          ]
-        },{
-          index: 1,
-          answerText: "Which product?",
-          validator: function(){return true},
-          questions: [
-            {
-              index: 0,
-              answerText: "Product XY is very expensive",
-              validator: function(){return false},
-              questions: null
-            },
-            {
-              index: 1,
-              answerText: "This Product is perfect for your use case",
-              validator: function(){return true},
-              questions: null
-            }
-          ]
-        }
-      ]
-
-
-
-
-      function findAnswer(p, q){
-          var i;
-          var questionsToFind = questions;
-          if(q){
-            while(i = q.pop()){
-              questionsToFind = questionsToFind[i].questions;
-            } 
-          }
-
-          for (var i = 0; i < questionsToFind.length; i++) {
-            if(questionsToFind[i].validator()){
-              if(!questionsToFind[i].questions){
-                path = null;
-              }else{
-                path.push(questionsToFind[i].index);
-              }
-              return questionsToFind[i];
-            }
-          }
-
-          path = null;
-          return {
-            answerText: "I don't know what you mean",
-            validator: function(){return true},
-            questions: null
-          };
+var answers = require('./answers');
+exports.questionGraph = [
+  {
+    debug: 'you are on level 1',
+    answerText: function(){return answers.randomHello()},
+    isAnswerTo: function(q){return q.match(/(wie|viel|kostet|kosten|preis)/i)},
+    questions: []
+  },{
+    answerText: function(){return answers.randomHello()},
+    isAnswerTo: function(q){return q.match(/(wie|viel|kostet|kosten|preis)/i)},
+    questions: []
+  },{
+    answerText: function(){return "Which product?"},
+    isAnswerTo: function(q){return q.match(/(product)/i)},
+    questions: [
+      {
+        debug: 'you are on level 2',
+        answerText: function(){return "Product XY is very expensive"},
+        isAnswerTo: function(q){return false},
+        questions: null
+      },
+      {
+        answerText: function(){return "This Product is perfect for your use case"},
+        isAnswerTo: function(q){return true},
+        questions: null
       }
-
-
-      // console.log(findAnswer("hi").answerText);
-      console.log(findAnswer("I got a question for a product", path).answerText);
-      console.log(findAnswer("A pen", path).answerText);
+    ]
+  }
+]

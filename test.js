@@ -1,8 +1,13 @@
 
-var messageReciever = require('./message-reciever');
+var messageResolver = require('./questioning/message-resolver');
+var database = require('./questioning/database');
 
-console.log(messageReciever.getReply("Hallo"));
-console.log(messageReciever.getReply("Was kostet das Produkt PR-1337"));
-console.log(messageReciever.getReply("Ist der Preis von PR-1337 hoch?"));
-console.log(messageReciever.getReply("Was ist das Produkt PR-1337?"));
-// console.log(messageReciever.getReply("Was kann ich Dich fragen?"));
+
+
+
+console.log(messageResolver.findAnswer("I got a question for a product"));
+console.log('----------')
+console.log('----------')
+console.log('----------')
+console.log('----------')
+console.log(messageResolver.findAnswer("I mean product PR-12312, do you have some information?"));

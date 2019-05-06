@@ -1,19 +1,20 @@
 var answers = require('./answers');
+var database = require('./database');
 
-var database = {
-  customerData: {},
-  openQuestions: { }
-};
+// var database = {
+//   customerData: {},
+//   openQuestions: { }
+// };
 
 exports.getReply = function(body) {
   var userMessage = body.message.text;
   var userId = body.message.from.id;
-  
-  if (hasOpenQuestion(customerId)){
-    if(answerQuestion(customerId, customerMessage)){
-      return answers.thanksForAnswer();
-    }
-  }
+
+  // if (hasOpenQuestion(customerId)){
+  //   if(answerQuestion(customerId, customerMessage)){
+  //     return answers.thanksForAnswer();
+  //   }
+  // }
   if (customerMessage.match(/(PR-[0-9]+)/i)){
     var product = customerMessage.match(/(PR-[0-9]+)/i)[0];
     if(customerMessage.match(/(wie|viel|kostet|kosten|preis)/i)){
@@ -34,28 +35,78 @@ exports.getReply = function(body) {
 };
 
 
-function answerQuestion(customerId, customerMessage){
-  if(database.openQuestions[customerId] == 'isCustomer'){
-    database.openQuestions[customerId] = null;
-    if(!database.customerData[customerId]){
-      database.customerData[customerId] = {};
-    }
-    if (customerMessage.match(/(ja|jop|yes)/i)){
-      database.customerData[customerId].isCustomer = true;
-    }else{
-      database.customerData[customerId].isCustomer = false;
+// function answerQuestion(customerId, customerMessage){
+//   if(database.openQuestions[customerId] == 'isCustomer'){
+//     database.openQuestions[customerId] = null;
+//     if(!database.customerData[customerId]){
+//       database.customerData[customerId] = {};
+//     }
+//     if (customerMessage.match(/(ja|jop|yes)/i)){
+//       database.customerData[customerId].isCustomer = true;
+//     }else{
+//       database.customerData[customerId].isCustomer = false;
+//     }
+//   }
+// }
+
+// function hasOpenQuestion(customerId){
+//   return !!database.openQuestions[customerId];
+// }
+//
+//
+// function isCustomer(customerId){
+//   if(database.customerData[customerId] === undefined || database.customerData[customerId] == null ||  database.customerData[customerId].isCustomer === undefined || database.customerData[customerId].isCustomer === null){
+//     return null;
+//   }
+//   return database.customerData[customerId];
+// }
+
+
+
+function findcorrectAnswer(usersQuestion, questions){
+  console.log(usersQuestion);
+  for (var i = 0; i < questions.length; i++) {
+    if(questions[i].isAnswerTo(usersQuestion)){
+      console.log('Yeah, we got the answer');
+      if(!questions[i].questions.length){
+        database.clearUserPath();
+      }else{
+        database.appendUserPath(i);
+      }
+      return questions[i].answerText();
     }
   }
+
+  database.clearUserPath();
+  // return {
+  //   answerText: "I don't know what you mean",
+  //   isAnswerTo: function(q){return true},
+  //   questions: null,
+  //   // path: pathToReturnToTheUser
+  // };
+  return "Sorry, I can't help you with this request"
 }
 
-function hasOpenQuestion(customerId){
-  return !!database.openQuestions[customerId];
+exports.findAnswer = function(currentQuestion){
+  var contextQuestions = navigateToCurrentQuestion();
+
+  return findcorrectAnswer(currentQuestion, contextQuestions);
 }
+function navigateToCurrentQuestion(){
+  var questionsToFind = require('./question-graph').questionGraph;
 
-
-function isCustomer(customerId){
-  if(database.customerData[customerId] === undefined || database.customerData[customerId] == null ||  database.customerData[customerId].isCustomer === undefined || database.customerData[customerId].isCustomer === null){
-    return null;
+  var userPath = database.getUserPath();
+  while(userPath.length){
+    questionsToFind = questionsToFind[userPath.pop()];
   }
-  return database.customerData[customerId];
+
+  // if(database.getUserPath().length){
+  //   var currentUserPath = database.getUserPath();
+  //   console.log(currentUserPath)
+  //   var i;
+  //   while(i = currentUserPath.pop()){
+  //     questionsToFind = questionsToFind[i].questions;
+  //   } 
+  // }
+  return questionsToFind;
 }
