@@ -17,12 +17,16 @@ exports.questionGraph = [
     isAnswerTo: function(q){return q.match(/(produkt|product)/i)},
     questions: [
       {
-        answerText: function(q){return answers.productInformationMessage(q.match(/(PR-[0-9]+)/i)[0])},
-        isAnswerTo: function(q){return q.match(/(PR-[0-9]+)/i) && q.match(/(frage|informationen|details)/i)},
+        answerText: function(q){return answers.productPriceMessage(q.match(/(PR-[0-9]+)/i)[0])},
+        isAnswerTo: function(q){return q.match(/(PR-[0-9]+)/i) && q.match(/(preis|kostet|kosten|)/i)},
         questions: []
       },{
-        answerText: function(){return "This Product is perfect for your use case"},
-        isAnswerTo: function(q){return true},
+        answerText: function(q){return "Na logo... das ist so ein super Produkt"},
+        isAnswerTo: function(q){return q.match(/(PR-[0-9]+)/i) && q.match(/(soll)/i) && q.match(/(kaufen)/i)},
+        questions: []
+      },{
+        answerText: function(q){return answers.productInformationMessage(q.match(/(PR-[0-9]+)/i)[0])},
+        isAnswerTo: function(q){return q.match(/(PR-[0-9]+)/i)},
         questions: []
       }
     ]
