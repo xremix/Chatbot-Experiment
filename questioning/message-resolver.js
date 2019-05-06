@@ -4,8 +4,19 @@ var database = require('./database');
 exports.getReply = function(body) {
   var userMessage = body.message.text;
   var userId = body.message.from.id;
-  
-  return findcorrectAnswer(userMessage, navigateToCurrentQuestion());
+
+  var answer = findcorrectAnswer(userMessage, navigateToCurrentQuestion());
+  // Fallback to default questions
+  if(!answer){
+    var startQuestions = require('./question-graph').questionGraph;
+    answer = findcorrectAnswer(userMessage, startQuestions);
+  }
+  // Default message
+  if(!answer){
+    answer = answers.helpMessage();
+  }
+
+  return answer;
 };
 
 
@@ -22,7 +33,6 @@ function findcorrectAnswer(usersQuestion, questions){
   }
 
   database.clearUserPath();
-  return answers.helpMessage();
 }
 
 function navigateToCurrentQuestion(){
