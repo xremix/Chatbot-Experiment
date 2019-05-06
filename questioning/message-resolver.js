@@ -64,16 +64,14 @@ exports.getReply = function(body) {
 
 
 function findcorrectAnswer(usersQuestion, questions){
-  console.log(usersQuestion);
   for (var i = 0; i < questions.length; i++) {
     if(questions[i].isAnswerTo(usersQuestion)){
-      console.log('Yeah, we got the answer');
       if(!questions[i].questions.length){
         database.clearUserPath();
       }else{
         database.appendUserPath(i);
       }
-      return questions[i].answerText();
+      return questions[i].answerText(usersQuestion);
     }
   }
 
@@ -84,29 +82,20 @@ function findcorrectAnswer(usersQuestion, questions){
   //   questions: null,
   //   // path: pathToReturnToTheUser
   // };
-  return "Sorry, I can't help you with this request"
+  return answers.helpMessage();
 }
 
 exports.findAnswer = function(currentQuestion){
   var contextQuestions = navigateToCurrentQuestion();
-
   return findcorrectAnswer(currentQuestion, contextQuestions);
 }
+
 function navigateToCurrentQuestion(){
   var questionsToFind = require('./question-graph').questionGraph;
 
   var userPath = database.getUserPath();
   while(userPath.length){
-    questionsToFind = questionsToFind[userPath.pop()];
+    questionsToFind = questionsToFind[userPath.pop()].questions;
   }
-
-  // if(database.getUserPath().length){
-  //   var currentUserPath = database.getUserPath();
-  //   console.log(currentUserPath)
-  //   var i;
-  //   while(i = currentUserPath.pop()){
-  //     questionsToFind = questionsToFind[i].questions;
-  //   } 
-  // }
   return questionsToFind;
 }
