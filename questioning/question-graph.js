@@ -5,14 +5,6 @@ exports.questionGraph = [
     isAnswerTo: function(q){return q.match(/Kennst du (.* )?(\w+)?/i)},
     questions: []
   },{
-    answerText: function(q){return answers.randomHello()},
-    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i)},
-    questions: []
-  },{
-    answerText: function(q){return answers.randomThankyou()},
-    isAnswerTo: function(q){return q.match(/(danke|merci)/i)},
-    questions: []
-  },{
     answerText: function(q){return answers.productPriceMessage(q.match(/(PR-[0-9]+)/i)[0])},
     isAnswerTo: function(q){return q.match(/(PR-[0-9]+)/i) && q.match(/(preis|kostet|kosten|)/i)},
     questions: []
@@ -22,7 +14,7 @@ exports.questionGraph = [
     questions: []
   },{
     answerText: function(){return "Welches Produkt meinst Du?"},
-    isAnswerTo: function(q){return q.match(/(produkt)/i)},
+    isAnswerTo: function(q){return q.match(/(produkt|product)/i)},
     questions: [
       {
         answerText: function(q){return answers.productInformationMessage(q.match(/(PR-[0-9]+)/i)[0])},
@@ -35,8 +27,12 @@ exports.questionGraph = [
       }
     ]
   },{
-    answerText: function(){return answers.randomHello()},
-    isAnswerTo: function(q){return q.match(/(wie|viel|kostet|kosten|preis)/i)},
+    answerText: function(q){return answers.randomHello()},
+    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i)},
+    questions: []
+  },{
+    answerText: function(q){return answers.randomThankyou()},
+    isAnswerTo: function(q){return q.match(/(danke|merci)/i)},
     questions: []
   }
 ];
