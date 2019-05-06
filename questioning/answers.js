@@ -1,11 +1,7 @@
 
 exports.thanksForAnswer = function (){
-  return "Danke für die Antwort";
+  return "Ich Danke Dir";
 }
-
-
-
-
 
 exports.doYouKnow = function (person){
   if(person.toLowerCase() == "andi"){
@@ -17,6 +13,8 @@ exports.doYouKnow = function (person){
   if(q.match(/(bene|chris|manu)/i)){
     return "Na klar, er ist klasse... ich kenne ihn aus der Uni"
   }
+
+  return "Leider nein, habe ich noch nie gehört";
 }
 exports.askIfCustomer = function (customerId){
   database.openQuestions[customerId] = 'isCustomer';
@@ -33,6 +31,17 @@ exports.productPriceMessage = function (product, isCustomer){
 
 exports.productInformationMessage = function (product){
   return "Das Produkt ist super... kaufe es doch einfach";
+}
+exports.randomHowAreYou = function(){
+  var answers = [
+    "Alles fit... danke der Nachfrage",
+    "Läuft... und bei Dir?",
+    "Mir geht es gut, danke. Und selsbt?",
+    "Sehr gut. Kann ich Dir behilflich sein?",
+    "Gut Danke, kann ich etwas für Dich tun?"
+  ];
+
+  return answers[Math.floor(Math.random() * answers.length)];
 }
 
 exports.randomHello = function (){

@@ -1,4 +1,3 @@
-var answers = require('./answers');
 var database = require('./database');
 
 exports.getReply = function(body) {
@@ -12,14 +11,9 @@ exports.getReply = function(body) {
     var startQuestions = require('./question-graph').questionGraph;
     answer = findcorrectAnswer(userMessage, startQuestions);
   }
-  // Default message
-  if(!answer){
-    answer = answers.helpMessage();
-  }
 
   return answer;
 };
-
 
 function findcorrectAnswer(usersQuestion, questions){
   for (var i = 0; i < questions.length; i++) {

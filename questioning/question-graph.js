@@ -35,8 +35,30 @@ exports.questionGraph = [
     isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i)[0]},
     questions: []
   },{
+    answerText: function(q){return answers.randomHowAreYou()},
+    isAnswerTo: function(q){return q.match(/wie.*geht.*dir/i)},
+    questions: []
+  },{
+    answerText: function(q){return answers.randomHello()},
+    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i)[0]},
+    questions: []
+  },{
     answerText: function(q){return answers.randomThankyou()},
     isAnswerTo: function(q){return q.match(/(danke|merci)/i)[0]},
     questions: []
+  },{
+    answerText: function(q){return 'Leider habe ich das nicht verstanden. Soll ich Dir die Hilfe zeigen?'},
+    isAnswerTo: function(q){true},
+    questions: [
+      {
+        answerText: function(q){return answers.helpMessage()},
+        isAnswerTo: function(q){return q.match(/(ja)/i)[0]},
+        questions: []
+      },{
+        answerText: function(q){return 'OK, dann nicht'},
+        isAnswerTo: function(q){return true},
+        questions: []
+      }
+    ]
   }
 ];
