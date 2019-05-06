@@ -1,3 +1,8 @@
+exports.getUserPath = getUserPath;
+exports.appendUserPath = appendUserPath;
+exports.clearUserPath = clearUserPath;
+exports.version = '0.1.7';
+
 var jsondatabase = {
   user:{
 
@@ -22,8 +27,3 @@ function clearUserPath (userId){
   createUserSettingIfDoesntExist(userId)
   jsondatabase.user[userId].userPath = [];
 }
-
-exports.getUserPath = getUserPath;
-exports.appendUserPath = appendUserPath;
-exports.clearUserPath = clearUserPath;
-exports.version = '0.1.6';
