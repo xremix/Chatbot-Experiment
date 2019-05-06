@@ -26,3 +26,4 @@ function clearUserPath (userId){
 exports.getUserPath = getUserPath;
 exports.appendUserPath = appendUserPath;
 exports.clearUserPath = clearUserPath;
+exports.version = '0.1.6';

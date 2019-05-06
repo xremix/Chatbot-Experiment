@@ -2,18 +2,18 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var telegram = require('./telegram');
 var messageResolver = require('./questioning/message-resolver');
+var database = require('./questioning/database');
 var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
 
-var version = '0.1.3';
 const dotenv = require('dotenv');
 dotenv.config();
 var port = process.env.PORT || 1337;
 
 app.get('/', function (req, res) {
   console.log("Got a / request");
-  res.send('Bot Service is up! You are seeing version v' + version);
+  res.send('Bot Service is up! You are seeing version v' + database.version);
 });
 
 app.get('/test', function (req, res) {

@@ -32,30 +32,30 @@ exports.questionGraph = [
     ]
   },{
     answerText: function(q){return answers.randomHello()},
-    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i)[0]},
+    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i)},
     questions: []
   },{
     answerText: function(q){return answers.randomHowAreYou()},
     isAnswerTo: function(q){return q.match(/wie.*geht.*dir/i)},
     questions: []
   },{
-    answerText: function(q){return answers.randomHello()},
-    isAnswerTo: function(q){return q.match(/(hallo|hey|hi|servus)/i)[0]},
+    answerText: function(q){return answers.randomThankyou()},
+    isAnswerTo: function(q){return q.match(/(danke|merci)/i)},
     questions: []
   },{
-    answerText: function(q){return answers.randomThankyou()},
-    isAnswerTo: function(q){return q.match(/(danke|merci)/i)[0]},
+    answerText: function(q){return answers.helpMessage()},
+    isAnswerTo: function(q){return q.match(/(hilfe|help)/i)},
     questions: []
   },{
     answerText: function(q){return 'Leider habe ich das nicht verstanden. Soll ich Dir die Hilfe zeigen?'},
-    isAnswerTo: function(q){true},
+    isAnswerTo: function(q){return true},
     questions: [
       {
         answerText: function(q){return answers.helpMessage()},
-        isAnswerTo: function(q){return q.match(/(ja)/i)[0]},
+        isAnswerTo: function(q){return q.match(/(ja)/i)},
         questions: []
       },{
-        answerText: function(q){return 'OK, dann nicht'},
+        answerText: function(q){return 'OK, dann nicht. Falls ich sonst noch etwas für Dich tun kann, sag gerne bescheid... :-('},
         isAnswerTo: function(q){return true},
         questions: []
       }

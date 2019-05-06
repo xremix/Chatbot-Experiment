@@ -1,3 +1,4 @@
+var database = require('./database');
 
 exports.thanksForAnswer = function (){
   return "Ich Danke Dir";
@@ -65,10 +66,15 @@ exports.randomThankyou = function (){
 }
 
 exports.helpMessage = function (){
-  return `Leider konnte ich deine Frage nicht verstehen. Bitte versuche eine der folgenden Befehle
+  return `Hier ein paar Beispiele die Du mich fragen kannst:
+  -  Hallo
   -  Was kostet das Produkt PR-10010?
   -  Was ist das Produkt PR-10010?
+  -  Ich habe eine Frage zu einem Produkt
   - Dankeschön
   - Kennst Du Andi?
+  - Hilfe
+
+  Du sprichst übrigens mit dem Bot in der Version ${database.version}
   `;
 }
