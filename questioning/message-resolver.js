@@ -4,22 +4,8 @@ var database = require('./database');
 exports.getReply = function(body) {
   var userMessage = body.message.text;
   var userId = body.message.from.id;
-
-  if (customerMessage.match(/(PR-[0-9]+)/i)){
-    var product = customerMessage.match(/(PR-[0-9]+)/i)[0];
-    if(customerMessage.match(/(wie|viel|kostet|kosten|preis)/i)){
-
-      return answers.productPriceMessage(product, isCustomer(customerId));
-    } else {
-      return answers.productInformationMessage(product);
-    }
-  } else if(customerMessage.match(/(hallo|hi|hey)/i)) {
-    return answers.randomHello();
-  } else if(customerMessage.match(/(danke)/i)) {
-    return answers.randomThankyou();
-  } else {
-    return answers.helpMessage();
-  }
+  
+  return findcorrectAnswer(userMessage, navigateToCurrentQuestion());
 };
 
 
@@ -37,11 +23,6 @@ function findcorrectAnswer(usersQuestion, questions){
 
   database.clearUserPath();
   return answers.helpMessage();
-}
-
-exports.findAnswer = function(currentQuestion){
-  var contextQuestions = navigateToCurrentQuestion();
-  return findcorrectAnswer(currentQuestion, contextQuestions);
 }
 
 function navigateToCurrentQuestion(){
