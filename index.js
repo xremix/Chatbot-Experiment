@@ -1,12 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var telegram = require('./telegram');
-var messageReciever = require('./message-reciever');
+var messageResolver = require('./questioning/message-resolver');
 var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
 
-var version = '0.0.12';
+var version = '0.1.0';
 const dotenv = require('dotenv');
 dotenv.config();
 var port = process.env.PORT || 1337;
@@ -36,7 +36,7 @@ app.post('/recievemessage', function (req, res) {
   console.log(req.body);
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
-  var replyMessage = messageReciever.getReply(userMessage, userId);
+  var replyMessage = messageResolver.getReply(req.body);
 
   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
     res.send(replyMessage);
@@ -48,7 +48,7 @@ app.post('/recievemessage', function (req, res) {
 //   console.log(req.body);
 //   var userMessage = req.body.message.text;
 //   var userId = req.body.message.from.id;
-//   var replyMessage = messageReciever.getReply(userMessage);
+//   var replyMessage = messageResolver.getReply(userMessage);
 //
 //   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
 //     res.send(replyMessage);
