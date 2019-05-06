@@ -1,14 +1,26 @@
-var currentUserPath = [];
-function getUserPath (){
-  return currentUserPath;
+var jsondatabase = {
+  user:{
+
+  }
+};
+
+function createUserSettingIfDoesntExist(userId){
+  if(!jsondatabase.user[userId]){ jsondatabase.user[userId] = {userPath: []} }
 }
 
-function appendUserPath (v){
-  currentUserPath.push(v);
+function getUserPath (userId){
+  createUserSettingIfDoesntExist(userId)
+  return jsondatabase.user[userId].userPath;
 }
 
-function clearUserPath (){
-  currentUserPath = [];
+function appendUserPath (userId, v){
+  createUserSettingIfDoesntExist(userId)
+  jsondatabase.user[userId].userPath.push(v);
+}
+
+function clearUserPath (userId){
+  createUserSettingIfDoesntExist(userId)
+  jsondatabase.user[userId].userPath = [];
 }
 
 exports.getUserPath = getUserPath;

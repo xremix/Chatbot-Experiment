@@ -69,5 +69,6 @@ exports.helpMessage = function (){
   -  Was kostet das Produkt PR-10010?
   -  Was ist das Produkt PR-10010?
   - Dankeschön
+  - Kennst Du Andi?
   `;
 }
