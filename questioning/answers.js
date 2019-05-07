@@ -9,9 +9,9 @@ exports.doYouKnow = function (person){
     return "Natürlich kenne ich Andi... was für eine Frage. Er gehört zu meinen Erfindern!"
   }
   if(person.toLowerCase() == "toni"){
-    return "Natürlich kenne ich Andi... was für eine Frage. Er gehört zu meinen Erfindern!"
+    return "Natürlich kenne ich Toni... was für eine Frage. Er gehört zu meinen Erfindern!"
   }
-  if(q.match(/(bene|chris|manu)/i)){
+  if(person.match(/(bene|chris|manu)/i) && person.match(/(bene|chris|manu)/i)[0]){
     return "Na klar, er ist klasse... ich kenne ihn aus der Uni"
   }
 
