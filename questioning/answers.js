@@ -34,47 +34,47 @@ exports.productInformationMessage = function (product){
   return "Das Produkt ist super... kaufe es doch einfach";
 }
 exports.randomHowAreYou = function(){
-  var answers = [
+  return getRandom([
     "Alles fit... danke der Nachfrage",
     "Läuft... und bei Dir?",
     "Mir geht es gut, danke. Und selsbt?",
     "Sehr gut. Kann ich Dir behilflich sein?",
     "Gut Danke, kann ich etwas für Dich tun?"
-  ];
-
-  return answers[Math.floor(Math.random() * answers.length)];
+  ]);
 }
 
 exports.randomHello = function (){
-  var answers = [
+  return getRandom([
     "Hallo, was ist dein Anliegen?",
     "Hallo, wie kann ich Dir weiter helfen?",
     "Was kann ich für Dich tun?",
     "Hallo, kann ich dir behilflich sein?"
-  ];
-
-  return answers[Math.floor(Math.random() * answers.length)];
+  ]);
 }
 
 exports.randomThankyou = function (){
-  var answers = [
+  return getRandom([
     "Gerne, kann ich sonst noch etwas für Dich tun?",
     "Klar, ich bin immer für Dich da"
-  ];
-
-  return answers[Math.floor(Math.random() * answers.length)];
+  ]);
 }
 
 exports.helpMessage = function (){
   return `Hier ein paar Beispiele die Du mich fragen kannst:
   -  Hallo
   -  Was kostet das Produkt PR-10010?
-  -  Was ist das Produkt PR-10010?
+  -  Was ist der Preis von Artikel PR-91231?
+  -  Was ist das Produkt PR-12030?
   -  Ich habe eine Frage zu einem Produkt
+  -  Ich möchte den Preis von einem Produkt wissen
   - Dankeschön
   - Kennst Du Andi?
   - Hilfe
 
   Du sprichst übrigens mit dem Bot in der Version ${database.version}
   `;
+}
+
+function getRandom(answers){
+  return answers[Math.floor(Math.random() * answers.length)];
 }
