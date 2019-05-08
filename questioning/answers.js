@@ -1,10 +1,6 @@
 var database = require('./database');
 
-exports.thanksForAnswer = function (){
-  return "Ich Danke Dir";
-}
-
-exports.doYouKnow = function (person){
+exports.doYouKnowText = function (person){
   if(person.toLowerCase() == "andi"){
     return "Natürlich kenne ich Andi... was für eine Frage. Er gehört zu meinen Erfindern!"
   }
@@ -17,49 +13,16 @@ exports.doYouKnow = function (person){
 
   return "Leider nein, habe ich noch nie gehört";
 }
-exports.askIfCustomer = function (customerId){
-  database.openQuestions[customerId] = 'isCustomer';
-  return "Sind sie Kunde?";
-}
-exports.productPriceMessage = function (product, isCustomer){
+
+exports.productPriceText = function (product, isCustomer){
   if(!isCustomer){
     return "Das Produkt kostet 3,99€. Für sie als Neukunden gibt es zusätzlich einen Rabatt von 10%";
   }else{
     return "Das Produkt kostet 3,99€.";
   }
-
 }
 
-exports.productInformationMessage = function (product){
-  return "Das Produkt ist super... kaufe es doch einfach";
-}
-exports.randomHowAreYou = function(){
-  return getRandom([
-    "Alles fit... danke der Nachfrage",
-    "Läuft... und bei Dir?",
-    "Mir geht es gut, danke. Und selsbt?",
-    "Sehr gut. Kann ich Dir behilflich sein?",
-    "Gut Danke, kann ich etwas für Dich tun?"
-  ]);
-}
-
-exports.randomHello = function (){
-  return getRandom([
-    "Hallo, was ist dein Anliegen?",
-    "Hallo, wie kann ich Dir weiter helfen?",
-    "Was kann ich für Dich tun?",
-    "Hallo, kann ich dir behilflich sein?"
-  ]);
-}
-
-exports.randomThankyou = function (){
-  return getRandom([
-    "Gerne, kann ich sonst noch etwas für Dich tun?",
-    "Klar, ich bin immer für Dich da"
-  ]);
-}
-
-exports.helpMessage = function (){
+exports.helpText = function (){
   return `Hier ein paar Beispiele die Du mich fragen kannst:
   -  Hallo
   -  Was kostet das Produkt PR-10010?
@@ -71,10 +34,6 @@ exports.helpMessage = function (){
   - Kennst Du Andi?
   - Hilfe
 
-  Du sprichst übrigens mit dem Bot in der Version ${database.version}
+  Du sprichst gerade übrigens mit Comp-Bot in der Version ${database.version}
   `;
-}
-
-function getRandom(answers){
-  return answers[Math.floor(Math.random() * answers.length)];
 }

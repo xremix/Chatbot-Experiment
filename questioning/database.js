@@ -1,7 +1,7 @@
 exports.getUserPath = getUserPath;
 exports.appendUserPath = appendUserPath;
 exports.clearUserPath = clearUserPath;
-exports.version = '0.1.9';
+exports.version = '0.2.1';
 
 var jsondatabase = {
   user:{
