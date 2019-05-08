@@ -18,7 +18,7 @@ exports.getReply = function(body) {
 function findcorrectAnswer(usersQuestion, possibleQuestions, userId){
   for (var i = 0; i < possibleQuestions.length; i++) {
     if(possibleQuestions[i].pattern(usersQuestion)){
-      if(!possibleQuestions[i].possibleQuestions.length){
+      if(!possibleQuestions[i].questions.length){
         database.clearUserPath(userId);
       }else{
         database.appendUserPath(userId, i);
