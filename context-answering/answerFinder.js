@@ -1,36 +1,22 @@
 
 var telegram = require('../telegram');
 
-var doYouKnowText = function (person){
-  if(person.toLowerCase() == "andi"){
-    return "Natürlich kenne ich Andi... was für eine Frage. Er gehört zu meinen Erfindern!";
-  }
-  if(person.toLowerCase() == "toni"){
-    return "Natürlich kenne ich Toni... was für eine Frage. Er gehört zu meinen Erfindern!";
-  }
-  if(person.match(/(bene|chris|manu|alex)/i) && person.match(/(bene|chris|manu|alex)/i)[0]){
-    return `Na klar, ${person} ist klasse... ich kenne ihn aus der Uni`;
-  }
-
-  return "Leider nein, habe ich noch nie gehört";
-}
-
 function getRandom(answers){
   return answers[Math.floor(Math.random() * answers.length)];
 }
 
 
 exports.findAnswerFromContext = function(db, userId){
-  var c = db.getContext(userId);
+  var context = db.getContext(userId);
 
-  if(c.break) {
+  if(context.break) {
     db.clearContext(userId);
     return "Tut mir leid, dass ich Dir deine Frage nicht beantworten konnte. Kann ich sonst etwas für Dich tun?";
     // return "Kann ich sonst weiterhelfen?";
   }
 
-  if(c.openQuestionIfShouldShowHelp){
-    if(c.openQuestionIfShouldShowHelp === 'expert'){
+  if(context.openQuestionIfShouldShowHelp){
+    if(context.openQuestionIfShouldShowHelp === 'expert'){
       db.clearContext(userId);
       return 'Bitte wende Dich an @Akofom oder @thoffmannfom';
     }
@@ -38,38 +24,38 @@ exports.findAnswerFromContext = function(db, userId){
     return "Falls ich sonst noch etwas für Dich tun kann, sag gerne bescheid... :-(";
   }
 
-  if(c.productcategory) {
-    if(c.product && c.price) {
+  if(context.productcategory) {
+    if(context.product && context.price) {
       db.clearContext(userId);
-      return `Das Produkt ${c.product} kostet 123€`;
+      return `Das Produkt ${context.product} kostet 123€`;
       // return "Kann ich sonst weiterhelfen?";
-    } else if(c.product && c.general) {
+    } else if(context.product && context.general) {
       db.clearContext(userId);
       return "Das Produkt ist ein Schraubenzieher. Schaue hier für mehr Informationen: http://link.xyz";
-    } else if(c.product && c.availibility) {
+    } else if(context.product && context.availibility) {
       db.clearContext(userId);
       return "Das Produkt kann innerhalb von 2 Tagen geliefert werden. Es sind nur noch wenige Produkte verfügbar";
-    } else if(c.product) {
+    } else if(context.product) {
       return "Was möchtest Du über das Produkt wissen? Ich kann Dir Informationen zu dem Preis, Lieferstatus oder allgemeine Informationen geben";
     } else {
       return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
     }
   } else {
 
-    if(c.contactInformation){
+    if(context.contactInformation){
       db.clearContext(userId);
       return `Du kannst uns jederzeit unter 089123123 zu den folgenden Zeiten anrufen
       Mo-Fr: 09-13 Uhr
       Sa: 10-12 Uhr`;
     }
 
-    if(c.findLocation){
+    if(context.findLocation){
       db.clearContext(userId);
       telegram.sendLocation(process.env.TOKEN, userId, 48.120120, 11.565138, null);
       return `Hier findest Du unseren Store`;
     }
 
-    if(c.showHelp){
+    if(context.showHelp){
       db.clearContext(userId);
       return `Hier ein paar Beispiele die Du mich fragen kannst:
       -  Hallo
@@ -85,14 +71,14 @@ exports.findAnswerFromContext = function(db, userId){
       Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
       `;
     }
-    if(c.thanks){
+    if(context.thanks){
       db.clearContext(userId);
       return getRandom([
         "Gerne, kann ich sonst noch etwas für Dich tun?",
         "Klar, ich bin immer für Dich da"
       ]);
     }
-    if(c.howDoYouDo){
+    if(context.howDoYouDo){
       db.clearContext(userId);
       getRandom([
         "Alles fit... danke der Nachfrage",
@@ -103,13 +89,19 @@ exports.findAnswerFromContext = function(db, userId){
       ]);
     }
 
-    if(c.doYouKnow){
-      var name = c.doYouKnow;
+    if(context.doYouKnow){
+      var name = context.doYouKnow;
       db.clearContext(userId);
-      return doYouKnowText(name);
+      if(person.match(/(toni|andi)/i) && person.match(/(toni|andi)/i)[0]){
+        return `Natürlich kenne ich ${person}... was für eine Frage. Er gehört zu meinen Erfindern!`;
+      }
+      if(person.match(/(bene|chris|manu|alex)/i) && person.match(/(bene|chris|manu|alex)/i)[0]){
+        return `Na klar, ${person} ist klasse... ich kenne ihn aus der Uni`;
+      }
+      return "Leider nein, habe ich noch nie gehört";
     }
 
-    if(c.welcome){
+    if(context.welcome){
       db.clearContext(userId);
       return getRandom([
         "Hallo, ich bin der Company Bot. Was ist dein Anliegen?",
@@ -120,6 +112,6 @@ exports.findAnswerFromContext = function(db, userId){
     }
   }
 
-  c.openQuestionIfShouldShowHelp = true;
+  context.openQuestionIfShouldShowHelp = true;
   return "Leider habe ich das nicht verstanden. Soll ich Dir die Hilfe zeigen, oder möchtest Du mit einem Experten sprechen?";
 }

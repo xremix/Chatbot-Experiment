@@ -18,9 +18,6 @@ exports.addToContext = function(db, userId, q) {
       context.product = q.match(/(PR-[0-9]+)/i)[0];
       context.productcategory = true;
     }
-    if (q.match(/(danke|merci)/i) && q.match(/(danke|merci)/i)[0]) {
-      context.thanks = true;
-    }
     if (q.match(/(produkt|artikel)/i) && q.match(/(produkt|artikel)/i)[0]) {
       context.productcategory = true;
     }
@@ -31,6 +28,9 @@ exports.addToContext = function(db, userId, q) {
     if (q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i) && q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
       context.productcategory = true;
       context.availibility = true;
+    }
+    if (q.match(/(danke|merci)/i) && q.match(/(danke|merci)/i)[0]) {
+      context.thanks = true;
     }
     if (q.match(/(wo|ort)/i) && q.match(/(wo|ort)/i)[0]) {
       context.findLocation = true;
