@@ -1,5 +1,17 @@
 
+var doYouKnowText = function (person){
+  if(person.toLowerCase() == "andi"){
+    return "Natürlich kenne ich Andi... was für eine Frage. Er gehört zu meinen Erfindern!"
+  }
+  if(person.toLowerCase() == "toni"){
+    return "Natürlich kenne ich Toni... was für eine Frage. Er gehört zu meinen Erfindern!"
+  }
+  if(person.match(/(bene|chris|manu|alex)/i) && person.match(/(bene|chris|manu|alex)/i)[0]){
+    return "Na klar, er ist klasse... ich kenne ihn aus der Uni"
+  }
 
+  return "Leider nein, habe ich noch nie gehört";
+}
 
 function getRandom(answers){
   return answers[Math.floor(Math.random() * answers.length)];
@@ -9,25 +21,20 @@ function getRandom(answers){
 exports.findAnswerFromContext = function(db, userId){
   var c = db.getContext(userId);
 
-  if(c.showHelp){
-    db.clearContext(userId);
-    return ("Hier die hilfe")
-  }
 
   if(c.openQuestionIfShouldShowHelp){
-
     if(c.openQuestionIfShouldShowHelp === 'expert'){
-      // clear c.openQuestionIfShouldShowHelp
+      db.clearContext(userId);
       return 'Bitte wende Dich an @Akofom oder @thoffmannfom';
-    }else{
-      return "OK, dann nicht. Falls ich sonst noch etwas für Dich tun kann, sag gerne bescheid... :-(";
     }
+    db.clearContext(userId);
+    return "Falls ich sonst noch etwas für Dich tun kann, sag gerne bescheid... :-(";
   }
 
   if(c.productcategory) {
     if(c.product && c.price) {
       db.clearContext(userId);
-      return ("Das Produkt 1023213 kostet 123€")
+      return ("Das Produkt "+c.product+" kostet 123€")
       // return ("Kann ich sonst weiterhelfen?")
     } else if(c.product && c.general) {
       db.clearContext(userId);
@@ -40,7 +47,44 @@ exports.findAnswerFromContext = function(db, userId){
     } else {
       return "Um welches Produkt handelt es sich?"
     }
-  }else if(c.welcome){
+  } else {
+
+    if(c.contactInformation){
+      db.clearContext(userId);
+      return `Du kannst uns jederzeit unter 089123123 zu den folgenden Zeiten anrufen
+      Mo-Fr: 09-13 Uhr
+      Sa: 10-12 Uhr`;
+    }
+
+    if(c.showHelp){
+      db.clearContext(userId);
+      return ("Hier die hilfe")
+    }
+    if(c.thanks){
+      db.clearContext(userId);
+      return getRandom([
+        "Gerne, kann ich sonst noch etwas für Dich tun?",
+        "Klar, ich bin immer für Dich da"
+      ]);
+    }
+    if(c.howDoYouDo){
+      db.clearContext(userId);
+      getRandom([
+        "Alles fit... danke der Nachfrage",
+        "Läuft... und bei Dir?",
+        "Mir geht es gut, danke. Und selsbt?",
+        "Sehr gut. Kann ich Dir behilflich sein?",
+        "Gut Danke, kann ich etwas für Dich tun?"
+      ]);
+    }
+
+    if(c.doYouKnow){
+      var name = c.doYouKnow;
+      db.clearContext(userId);
+      return (doYouKnowText(name))
+    }
+
+    if(c.welcome){
       db.clearContext(userId);
       return getRandom([
         "Hallo, ich bin der Company Bot. Was ist dein Anliegen?",
@@ -48,10 +92,9 @@ exports.findAnswerFromContext = function(db, userId){
         "Was kann ich für Dich tun?",
         "Hallo, kann ich dir behilflich sein?"
       ]);
-  }else{
-    // clear c
-    c.openQuestionIfShouldShowHelp = true;
-    return "Leider habe ich das nicht verstanden. Soll ich Dir die Hilfe zeigen, oder möchtest Du mit einem Experten sprechen?";
+    }
   }
-  // return c;
+
+  c.openQuestionIfShouldShowHelp = true;
+  return "Leider habe ich das nicht verstanden. Soll ich Dir die Hilfe zeigen, oder möchtest Du mit einem Experten sprechen?";
 }

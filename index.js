@@ -1,8 +1,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var telegram = require('./telegram');
-var messageResolver = require('./questioning/message-resolver');
+// var messageResolver = require('./questioning/message-resolver');
 var database = require('./questioning/database');
+
+var db = require('./context-answering/database');
+var contextFinder = require('./context-answering/context-finder');
+var contextAnswerer = require('./context-answering/context-answerer');
+
 var app = express();
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -36,7 +41,11 @@ app.post('/recievemessage', function (req, res) {
   console.log(req.body);
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
-  var replyMessage = messageResolver.getReply(req.body);
+
+  contextFinder.addToContext(db, 99, "Hallo");
+  var replyMessage = contextAnswerer.findAnswerFromContext(db, 99);
+
+  // var replyMessage = messageResolver.getReply(req.body);
 
   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
     res.send(replyMessage);
