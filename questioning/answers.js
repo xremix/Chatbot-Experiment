@@ -11,7 +11,7 @@ exports.doYouKnow = function (person){
   if(person.toLowerCase() == "toni"){
     return "Natürlich kenne ich Andi... was für eine Frage. Er gehört zu meinen Erfindern!"
   }
-  if(q.match(/(bene|chris|manu)/i)){
+  if(q.match(/(bene|chris|manu|alex)/i)){
     return "Na klar, er ist klasse... ich kenne ihn aus der Uni"
   }
 
@@ -22,12 +22,7 @@ exports.askIfCustomer = function (customerId){
   return "Sind sie Kunde?";
 }
 exports.productPriceMessage = function (product, isCustomer){
-  if(!isCustomer){
-    return "Das Produkt kostet 3,99€. Für sie als Neukunden gibt es zusätzlich einen Rabatt von 10%";
-  }else{
-    return "Das Produkt kostet 3,99€.";
-  }
-
+    return "Das Produkt " + product + " kostet 3,99€. Für Neukunden gibt es derzeit zusätzlich einen Rabatt von 10% auf alle bestellungen";
 }
 
 exports.productInformationMessage = function (product){

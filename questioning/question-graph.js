@@ -1,10 +1,18 @@
 var answers = require('./answers');
 exports.questionGraph = [
   {
-    answerText: function(q){return answers.doYouKnow(q.match(/Kennst du (.* )?(\w+)?/i)[2])},
-    isAnswerTo: function(q){return q.match(/Kennst du (.* )?(\w+)?/i)},
+    answerText: function(q){return answers.doYouKnow(q.match(/kennst du (.* )?(\w+)?/i)[2])},
+    isAnswerTo: function(q){return q.match(/kennst du (.* )?(\w+)?/i)},
     questions: []
   },{
+    answerText: function(q){return `Du kannst uns jederzeit unter 089123123 zu den folgenden Zeiten anrufen
+      Mo-Fr: 09-13 Uhr
+      Sa: 10-12 Uhr`},
+    isAnswerTo: function(q){return q.match(/kontakt|telefon|telephon|anrufen/i)},
+    questions: []
+  },
+  // Produkt und Preis
+  {
     answerText: function(q){return answers.productPriceMessage(q.match(/(PR-[0-9]+)/i)[0])},
     isAnswerTo: function(q){return q.match(/(PR-[0-9]+)/i) && q.match(/(preis|kostet|kosten)/i) && q.match(/(preis|kostet|kosten)/i)[0]},
     questions: []
@@ -13,8 +21,8 @@ exports.questionGraph = [
     isAnswerTo: function(q){return q.match(/(PR-[0-9]+)/i)},
     questions: []
   },{
-    answerText: function(){return "Welches Produkt meinst Du?"},
-    isAnswerTo: function(q){return q.match(/(produkt|product)/i)},
+    answerText: function(){return "Was ist die Artikelnummer von dem Produkt?"},
+    isAnswerTo: function(q){return q.match(/(produkt|artikel)/i)},
     questions: [
       {
         answerText: function(q){return answers.productPriceMessage(q.match(/(PR-[0-9]+)/i)[0])},
