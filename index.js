@@ -1,8 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var telegram = require('./telegram');
-// var messageResolver = require('./questioning/message-resolver');
-// var database = require('./questioning/database');
 
 var db = require('./context-answering/database');
 var contextFinder = require('./context-answering/context-finder');
@@ -33,7 +31,6 @@ app.get('/init', function (req, res) {
   telegram.setWebhook(process.env.TOKEN, process.env.WEBHOOKURL, function(response, body){
     res.send(body);
   });
-
 });
 
 app.post('/recievemessage', function (req, res) {
@@ -45,31 +42,11 @@ app.post('/recievemessage', function (req, res) {
   contextFinder.addToContext(db, userId, userMessage);
   var replyMessage = contextAnswerer.findAnswerFromContext(db, userId);
 
-  // var replyMessage = messageResolver.getReply(req.body);
-
   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
     res.send(replyMessage);
   });
 
 });
-// app.get('/recievemessage', function (req, res) {
-//   console.log("Got a /recievemessage get request");
-//   console.log(req.body);
-//   var userMessage = req.body.message.text;
-//   var userId = req.body.message.from.id;
-//   var replyMessage = messageResolver.getReply(userMessage);
-//
-//   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
-//     res.send(replyMessage);
-//   });
-//
-// });
-
-// app.get('/readMessages', function (req, res) {
-//   telegram.getUpdates(process.env.TOKEN, process.env.WEBHOOKURL, function(){
-//     res.send('Done');
-//   });
-// });
 
 app.listen(port, function () {
   console.log('Service listening on http://localhost:' + port);
