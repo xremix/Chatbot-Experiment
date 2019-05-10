@@ -27,8 +27,11 @@ exports.addToContext = function(db, userId, q) {
     if (q.match(/(preis|kostet|kosten)/i) && q.match(/(preis|kostet|kosten)/i)[0]) {
       context.price = true;
     }
-    if (q.match(/(he|hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0] && !q.match(/(hilfe|help)/i)){
+    if (q.match(/(hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0] && !q.match(/(hilfe|help)/i)){
       context.welcome = true;
+    }
+    if (q.match(/(nein|halt|stop|nichts|andere frage)/i) && q.match(/(nein|halt|stop|nichts|andere frage)/i)[0]){
+      context.break = true;
     }
     if (q.match(/wie.*geht(s|.*dir)/i)) { // TODO not working yet
       context.howDoYouDo = true;

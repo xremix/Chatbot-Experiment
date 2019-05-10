@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var telegram = require('./telegram');
 // var messageResolver = require('./questioning/message-resolver');
-var database = require('./questioning/database');
+// var database = require('./questioning/database');
 
 var db = require('./context-answering/database');
 var contextFinder = require('./context-answering/context-finder');
@@ -18,7 +18,7 @@ var port = process.env.PORT || 1337;
 
 app.get('/', function (req, res) {
   console.log("Got a / request");
-  res.send('Bot Service is up! You are seeing version v' + database.version);
+  res.send('Bot Service is up! You are seeing version v' + db.version);
 });
 
 app.get('/test', function (req, res) {
@@ -38,12 +38,12 @@ app.get('/init', function (req, res) {
 
 app.post('/recievemessage', function (req, res) {
   console.log("Got a /recievemessage post request");
-  console.log(req.body);
+  // console.log(req.body);
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
 
-  contextFinder.addToContext(db, 99, "Hallo");
-  var replyMessage = contextAnswerer.findAnswerFromContext(db, 99);
+  contextFinder.addToContext(db, userId, userMessage);
+  var replyMessage = contextAnswerer.findAnswerFromContext(db, userId);
 
   // var replyMessage = messageResolver.getReply(req.body);
 
