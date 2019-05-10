@@ -21,13 +21,16 @@ exports.addToContext = function(db, userId, q) {
     if (q.match(/(danke|merci)/i) && q.match(/(danke|merci)/i)[0]) {
       context.thanks = true;
     }
+    if (q.match(/(wo|ort)/i) && q.match(/(wo|ort)/i)[0]) {
+      context.findLocation = true;
+    }
     if (q.match(/(produkt|artikel)/i) && q.match(/(produkt|artikel)/i)[0]) {
       context.productcategory = true;
     }
     if (q.match(/(preis|kostet|kosten)/i) && q.match(/(preis|kostet|kosten)/i)[0]) {
       context.price = true;
     }
-    if (q.match(/(hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0] && !q.match(/(hilfe|help)/i)){
+    if (q.match(/(hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0]){
       context.welcome = true;
     }
     if (q.match(/(nein|halt|stop|nichts|andere frage)/i) && q.match(/(nein|halt|stop|nichts|andere frage)/i)[0]){

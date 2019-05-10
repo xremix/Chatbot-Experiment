@@ -1,4 +1,6 @@
 
+var telegram = require('../telegram');
+
 var doYouKnowText = function (person){
   if(person.toLowerCase() == "andi"){
     return "Natürlich kenne ich Andi... was für eine Frage. Er gehört zu meinen Erfindern!";
@@ -59,6 +61,12 @@ exports.findAnswerFromContext = function(db, userId){
       return `Du kannst uns jederzeit unter 089123123 zu den folgenden Zeiten anrufen
       Mo-Fr: 09-13 Uhr
       Sa: 10-12 Uhr`;
+    }
+
+    if(c.findLocation){
+      db.clearContext(userId);
+      telegram.sendLocation(process.env.TOKEN, userId, 48.120120, 11.565138, null);
+      return `Hier findest Du unseren Store`;
     }
 
     if(c.showHelp){
