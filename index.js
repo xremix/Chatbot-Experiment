@@ -3,8 +3,8 @@ var bodyParser = require('body-parser');
 var telegram = require('./telegram');
 
 var db = require('./context-answering/database');
-var contextFinder = require('./context-answering/context-finder');
-var contextAnswerer = require('./context-answering/context-answerer');
+var contextBuilder = require('./context-answering/contextBuilder');
+var answerFinder = require('./context-answering/answerFinder');
 
 var app = express();
 
@@ -39,8 +39,8 @@ app.post('/recievemessage', function (req, res) {
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
 
-  contextFinder.addToContext(db, userId, userMessage);
-  var replyMessage = contextAnswerer.findAnswerFromContext(db, userId);
+  contextBuilder.addToContext(db, userId, userMessage);
+  var replyMessage = answerFinder.findAnswerFromContext(db, userId);
 
   telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
     res.send(replyMessage);
