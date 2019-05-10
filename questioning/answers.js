@@ -34,6 +34,6 @@ exports.helpText = function (){
   - Kennst Du Andi?
   - Hilfe
 
-  Du sprichst gerade übrigens mit Comp-Bot in der Version ${database.version}
+  Du sprichst gerade übrigens mit dem Company Bot in der Version ${database.version}
   `;
 }

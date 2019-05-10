@@ -62,7 +62,7 @@ exports.questionGraph = [
     questions: []
   },{
     template: function(q){return getRandom([
-      "Hallo, ich bin Comp-Bot. Was ist dein Anliegen?",
+      "Hallo, ich bin der Company Bot. Was ist dein Anliegen?",
       "Hallo, wie kann ich Dir weiter helfen?",
       "Was kann ich für Dich tun?",
       "Hallo, kann ich dir behilflich sein?"
