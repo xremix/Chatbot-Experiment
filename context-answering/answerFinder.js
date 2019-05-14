@@ -92,11 +92,11 @@ exports.findAnswerFromContext = function(db, userId){
     if(context.doYouKnow){
       var name = context.doYouKnow;
       db.clearContext(userId);
-      if(person.match(/(toni|andi)/i) && person.match(/(toni|andi)/i)[0]){
-        return `Natürlich kenne ich ${person}... was für eine Frage. Er gehört zu meinen Erfindern!`;
+      if(name.match(/(toni|andi)/i) && name.match(/(toni|andi)/i)[0]){
+        return `Natürlich kenne ich ${name}... was für eine Frage. Er gehört zu meinen Erfindern!`;
       }
-      if(person.match(/(bene|chris|manu|alex)/i) && person.match(/(bene|chris|manu|alex)/i)[0]){
-        return `Na klar, ${person} ist klasse... ich kenne ihn aus der Uni`;
+      if(name.match(/(bene|chris|manu|alex)/i) && name.match(/(bene|chris|manu|alex)/i)[0]){
+        return `Na klar, ${name} ist klasse... ich kenne ihn aus der Uni`;
       }
       return "Leider nein, habe ich noch nie gehört";
     }
