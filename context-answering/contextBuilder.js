@@ -1,5 +1,7 @@
 exports.addToContext = function(db, userId, q) {
   context = db.getContext(userId);
+
+    // Replies
     if (context.openQuestionIfShouldShowHelp) {
       if (q.match(/(experte|mensch|profi)/i) && q.match(/(experte|mensch|profi)/i)[0]) {
         context.openQuestionIfShouldShowHelp = 'expert';
@@ -18,6 +20,7 @@ exports.addToContext = function(db, userId, q) {
       }
     }
 
+    // Product Category
     if (q.match(/(PR-[0-9]+)/i)) {
       context.product = q.match(/(PR-[0-9]+)/i)[0];
       context.productcategory = true;
@@ -29,14 +32,20 @@ exports.addToContext = function(db, userId, q) {
       context.productcategory = true;
       context.price = true;
     }
+
+    if (q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i) && q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
+      context.productcategory = true;
+      context.deliveryStatus = true;
+    }
+
+    // Orders
     if (q.match(/(reklamation|bestellung|lieferung)/i)  && q.match(/(reklamation|bestellung|lieferung)/i)[0]) {
       context.orderCategory = true;
     }
-    if (q.match(/(zurückgeben|reklamieren)/i) && q.match(/zurückgeben|reklamieren/i)[0]) {
+    if (q.match(/(zurückgeben|reklamieren|stornieren|vorgang.*abbrechen)/i) && q.match(/zurückgeben|reklamieren|stornieren|vorgang.*abbrechen/i)[0]) {
       context.orderCategory = true;
       context.sendBack = true;
     }
-
     if (q.match(/(zurück.*schicken)/i)) {
       context.orderCategory = true;
       context.sendBack = true;
@@ -54,10 +63,7 @@ exports.addToContext = function(db, userId, q) {
       context.orderNumber = q.match(/(R[0-9]+)/i)[0];
     }
 
-    if (q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i) && q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
-      context.productcategory = true;
-      context.deliveryStatus = true;
-    }
+    // Others
     if (q.match(/(danke|merci)/i) && q.match(/(danke|merci)/i)[0]) {
       context.thanks = true;
     }
@@ -70,7 +76,7 @@ exports.addToContext = function(db, userId, q) {
     if (q.match(/(wie geht|alles klar.*\?|alles fit)/i) && q.match(/(wie geht|alles klar.*\?|alles fit)/i)[0]){
       context.howDoing = true;
     }
-    if (q.match(/(abbruch|nein|halt|stop|nichts|andere frage)/i) && q.match(/(abbruch|nein|halt|stop|nichts|andere frage)/i)[0]){
+    if (q.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i) && q.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i)[0]){
       context.break = true;
     }
     if (q.match(/wie.*geht(s|.*dir)/i)) { // TODO not working yet

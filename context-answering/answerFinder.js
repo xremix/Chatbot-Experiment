@@ -45,15 +45,15 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
   }
 
   if(context.orderCategory) {
+  if(context.orderNumber && context.sendBack){
+    db.clearContext(userId);
+    return `Die Lieferung ${context.orderNumber} wird storniert. Sie erhalten in Kürze eine E-Mail mit Details zum rückversand.`;
+  }
+
     if(context.orderNumber && context.deliveryStatus){
       db.clearContext(userId);
       return `Die Lieferung ${context.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
     }
-    if(context.orderNumber && context.sendBack){
-      db.clearContext(userId);
-      return `Die Lieferung ${context.orderNumber} wird storniert. Sie erhalten in Kürze eine E-Mail mit Details zum rückversand.`;
-    }
-
     if(context.deliveryStatus){
       return `Ich gebe ihnen gerne ein Update zum Lieferstatus ihrer Bestellung. Bitte geben sie die Bestellnummer im Format R102310230 an. Dann können wir ihre Bestellung gerne stornieren.`;
     }
