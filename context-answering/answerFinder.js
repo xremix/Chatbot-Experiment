@@ -42,23 +42,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
     return "Falls ich sonst noch etwas für Dich tun kann, sag gerne bescheid... :-(";
   }
 
-  if(context.productcategory) {
-    if(context.product && context.price) {
-      db.clearContext(userId);
-      return `Das Produkt ${context.product} kostet 123€`;
-      // return "Kann ich sonst weiterhelfen?";
-    } else if(context.product && context.general) {
-      db.clearContext(userId);
-      return "Das Produkt ist ein Schraubenzieher. Schaue hier für mehr Informationen: http://link.xyz";
-    } else if(context.product && context.availibility) {
-      db.clearContext(userId);
-      return "Das Produkt kann innerhalb von 2 Tagen geliefert werden. Es sind nur noch wenige Produkte verfügbar";
-    } else if(context.product) {
-      return "Was möchtest Du über das Produkt wissen? Ich kann Dir Informationen zu dem Preis, Lieferstatus oder allgemeine Informationen geben";
-    } else {
-      return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
-    }
-  } else if(context.orderCategory) {
+  if(context.orderCategory) {
     if(context.orderNumber && context.deliveryStatus){
       db.clearContext(userId);
       return `Die Lieferung ${context.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
@@ -79,6 +63,22 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
     }
     return `Möchten sie den Lieferstatus oder eine Reklamation zu ihrer Besetllung?`;
 
+  }else if(context.productcategory) {
+    if(context.product && context.price) {
+      db.clearContext(userId);
+      return `Das Produkt ${context.product} kostet 123€`;
+      // return "Kann ich sonst weiterhelfen?";
+    } else if(context.product && context.general) {
+      db.clearContext(userId);
+      return "Das Produkt ist ein Schraubenzieher. Schaue hier für mehr Informationen: http://link.xyz";
+    } else if(context.product && context.availibility) {
+      db.clearContext(userId);
+      return "Das Produkt kann innerhalb von 2 Tagen geliefert werden. Es sind nur noch wenige Produkte verfügbar";
+    } else if(context.product) {
+      return "Was möchtest Du über das Produkt wissen? Ich kann Dir Informationen zu dem Preis, Lieferstatus oder allgemeine Informationen geben";
+    } else {
+      return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
+    }
   } else {
 
     if(context.orderNumber){
