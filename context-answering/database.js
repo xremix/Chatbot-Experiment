@@ -4,24 +4,24 @@ exports.clearContext = clearContext;
 exports.version = '0.3.22';
 
 var jsondatabase = {
-  user:{
+  users:{
 
   }
 };
 
 function createContextIfDoesntExist(userId){
-  if(!jsondatabase.user[userId]){ jsondatabase.user[userId] = {userContext: {}} }
+  if(!jsondatabase.users[userId]){ jsondatabase.users[userId] = {userContext: {}} }
 }
 
 function getContext (userId){
   createContextIfDoesntExist(userId)
-  return jsondatabase.user[userId].userContext;
+  return jsondatabase.users[userId].userContext;
 }
 function setContext (userId, obj){
-  jsondatabase.user[userId].userContext = obj;
+  jsondatabase.users[userId].userContext = obj;
 }
 
 
 function clearContext (userId){
-  jsondatabase.user[userId] = {userContext: {}}
+  jsondatabase.users[userId] = {userContext: {}}
 }
