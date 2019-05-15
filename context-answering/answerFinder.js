@@ -41,11 +41,11 @@ exports.findAnswerFromContext = function(db, userId){
       return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
     }
   } else if(context.orderCategory) {
-    if(contex.orderNumber && context.deliveryStatus){
+    if(context.orderNumber && context.deliveryStatus){
       db.clearContext(userId);
       return `Die Lieferung ${context.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
     }
-    if(contex.orderNumber && context.sendBack){
+    if(context.orderNumber && context.sendBack){
       db.clearContext(userId);
       return `Die Lieferung ${context.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
     }
@@ -56,14 +56,14 @@ exports.findAnswerFromContext = function(db, userId){
     if(context.sendBack){
       return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann können wir ihre Bestellung gerne stornieren.`;
     }
-    if(!contex.orderNumber ){
+    if(!context.orderNumber ){
       return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann helfe ich gerne weiter.`;
     }
     return `Möchten sie den Lieferstatus oder eine Reklamation zu ihrer Besetllung?`;
 
   } else {
 
-    if(contex.orderNumber){
+    if(context.orderNumber){
       return `Sie haben eine Bestellnummer angegeben. Möchten sie den Lieferstatus oder eine Reklamation zu der Bestellung?`;
     }
 
