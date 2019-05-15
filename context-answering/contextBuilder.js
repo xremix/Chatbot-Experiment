@@ -25,6 +25,25 @@ exports.addToContext = function(db, userId, q) {
       context.productcategory = true;
       context.price = true;
     }
+    if (q.match(/(reklamation|bestellung|lieferung)/i)  && q.match(/(reklamation|bestellung|lieferung)/i)[0]) {
+      context.orderCategory = true;
+    }
+    if (q.match(/(zurückgeben)/i)) {
+      context.orderCategory = true;
+      context.sendBack = true;
+    }
+    if (q.match(/(wann)/i) && q.match(/(lieferung)/i)) {
+      context.orderCategory = true;
+      context.deliveryStatus = true;
+    }
+
+    if (q.match(/(R[0-9]+)/i)) {
+      context.orderNumber = q.match(/(P[0-9]+)/i)[0];
+    }
+
+    if (q.match(/(zurück)/i) && q.match(/(schicken)/i)) {
+      context.sendBack = true;
+    }
     if (q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i) && q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
       context.productcategory = true;
       context.availibility = true;
