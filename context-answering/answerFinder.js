@@ -19,6 +19,7 @@ exports.findAnswerFromContext = function(db, userId){
     db.clearContext(userId);
     return `Hier ein paar Beispiele die Du mich fragen kannst:
 - Hallo
+- Wie geht es Dir?
 - Was kostet das Produkt PR-10010?
 - Was ist der Preis von Artikel PR-91231?
 - Was ist das Produkt PR-12030?
@@ -141,6 +142,16 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
         "Hallo, wie kann ich Dir weiter helfen?",
         "Was kann ich für Dich tun?",
         "Hallo, kann ich dir behilflich sein?"
+      ]);
+    }
+    if(context.howDoing){
+      db.clearContext(userId);
+      return getRandom([
+        "Danke der Nachfrage, mir geht es immer bestens, und selbst?",
+        "Könnte besser sein... ein paar Kollegen aus der Kundenbetreuung mögen mich nicht",
+        "Super, bin aber gerade etwas im Stress... ich kümmere mich derzeit um 37 Kunden parallel 🏃💨",
+        "Mir geht es einfach toll, gestern hatte ich Geburtstag und habe einen neuen Arbeitsspeicher geschenkt bekommen 🎂",
+        "Ich könnte etwas Urlaub gebrauchen 🥽🧳 Ich arbeite seit dem 2. Mai ohne Pause 👨‍💻"
       ]);
     }
   }

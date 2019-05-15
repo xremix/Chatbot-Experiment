@@ -67,6 +67,9 @@ exports.addToContext = function(db, userId, q) {
     if (q.match(/(hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0]){
       context.welcome = true;
     }
+    if (q.match(/(wie geht|alles klar.*\?|alles fit)/i) && q.match(/(wie geht|alles klar.*\?|alles fit)/i)[0]){
+      context.howDoing = true;
+    }
     if (q.match(/(abbruch|nein|halt|stop|nichts|andere frage)/i) && q.match(/(abbruch|nein|halt|stop|nichts|andere frage)/i)[0]){
       context.break = true;
     }
