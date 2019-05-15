@@ -1,7 +1,7 @@
 exports.getContext = getContext;
 exports.setContext = setContext;
 exports.clearContext = clearContext;
-exports.version = '0.3.9';
+exports.version = '0.3.10';
 
 var jsondatabase = {
   user:{

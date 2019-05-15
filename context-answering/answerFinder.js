@@ -83,18 +83,18 @@ exports.findAnswerFromContext = function(db, userId){
     if(context.showHelp){
       db.clearContext(userId);
       return `Hier ein paar Beispiele die Du mich fragen kannst:
-      -  Hallo
-      -  Was kostet das Produkt PR-10010?
-      -  Was ist der Preis von Artikel PR-91231?
-      -  Was ist das Produkt PR-12030?
-      -  Ich habe eine Frage zu einem Produkt
-      -  Ich möchte den Preis von einem Produkt wissen
-      -  Ich habe eine Frage zu einer Bestellung
-      - Dankeschön
-      - Kennst Du Andi?
-      - Hilfe
+ - Hallo
+ - Was kostet das Produkt PR-10010?
+ - Was ist der Preis von Artikel PR-91231?
+ - Was ist das Produkt PR-12030?
+ - Ich habe eine Frage zu einem Produkt
+ - Ich möchte den Preis von einem Produkt wissen
+ - Ich habe eine Frage zu einer Bestellung
+ - Dankeschön
+ - Kennst Du Andi?
+ - Hilfe
 
-      Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
+ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
       `;
     }
     if(context.thanks){
