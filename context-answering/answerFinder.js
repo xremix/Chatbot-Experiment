@@ -47,7 +47,7 @@ exports.findAnswerFromContext = function(db, userId){
     }
     if(context.orderNumber && context.sendBack){
       db.clearContext(userId);
-      return `Die Lieferung ${context.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
+      return `Die Lieferung ${context.orderNumber} wird storniert. Sie erhalten in Kürze eine E-Mail mit Details zum rückversand.`;
     }
 
     if(context.deliveryStatus){
