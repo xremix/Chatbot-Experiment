@@ -132,7 +132,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
       if(name.match(/(bene|chris|kolb|grumpy|alex)/i) && name.match(/(bene|chris|kolb|grumpy|alex)/i)[0]){
         return `Na klar, ${name} ist klasse... ich kenne ihn aus der Uni`;
       }
-      if(name.match(/(Müssigmann)/i)){
+      if(name.match(/(M[\u00dc]ssigmann)/i)){
         return `Was für eine Frage... ohne ihn gäbe es mich höchstwahrscheinlich nicht`;
       }
       if(name.match(/(Havel)/i)){
