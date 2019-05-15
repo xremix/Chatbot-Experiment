@@ -153,7 +153,6 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
     if(context.howDoing){
       db.clearContext(userId);
       return getRandom([
-        "Danke der Nachfrage, mir geht es immer bestens, und selbst?",
         "Könnte besser sein... ein paar Kollegen aus der Kundenbetreuung mögen mich nicht",
         "Super, bin aber gerade etwas im Stress... ich kümmere mich derzeit um 37 Kunden parallel 🏃💨",
         "Mir geht es einfach toll, gestern hatte ich Geburtstag und habe einen neuen Arbeitsspeicher geschenkt bekommen 🎂",
