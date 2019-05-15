@@ -12,6 +12,10 @@ exports.addToContext = function(db, userId, q) {
         context.openQuestionIfShouldShowHelp = 'nothing';
       }
       return;
+    }else{
+      if (q.match(/(experte|mensch)/i) && q.match(/(experte|mensch)/i)[0]) {
+        context.wantsExpert = true;
+      }
     }
 
     if (q.match(/(PR-[0-9]+)/i)) {
@@ -52,7 +56,7 @@ exports.addToContext = function(db, userId, q) {
 
     if (q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i) && q.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
       context.productcategory = true;
-      context.availibility = true;
+      context.deliveryStatus = true;
     }
     if (q.match(/(danke|merci)/i) && q.match(/(danke|merci)/i)[0]) {
       context.thanks = true;

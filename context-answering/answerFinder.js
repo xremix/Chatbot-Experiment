@@ -25,6 +25,7 @@ exports.findAnswerFromContext = function(db, userId){
 - Ich habe eine Frage zu einem Produkt
 - Ich möchte den Preis von einem Produkt wissen
 - Ich habe eine Frage zu einer Bestellung
+- Ich möchte mit einem Experten sprechen
 - Dankeschön
 - Kennst Du Andi?
 - Hilfe
@@ -71,7 +72,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
     } else if(context.product && context.general) {
       db.clearContext(userId);
       return "Das Produkt ist ein Schraubenzieher. Schaue hier für mehr Informationen: http://link.xyz";
-    } else if(context.product && context.availibility) {
+    } else if(context.product && context.deliveryStatus) {
       db.clearContext(userId);
       return "Das Produkt kann innerhalb von 2 Tagen geliefert werden. Es sind nur noch wenige Produkte verfügbar";
     } else if(context.product) {
@@ -83,6 +84,11 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
 
     if(context.orderNumber){
       return `Sie haben eine Bestellnummer angegeben. Möchten sie den Lieferstatus oder eine Reklamation zu der Bestellung?`;
+    }
+
+    if(context.wantsExpert){
+      db.clearContext(userId);
+      return 'Bitte wende Dich an @Akofom oder @thoffmannfom';
     }
 
     if(context.contactInformation){
