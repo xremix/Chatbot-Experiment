@@ -1,7 +1,7 @@
 exports.addToContext = function(db, userId, q) {
   context = db.getContext(userId);
     if (context.openQuestionIfShouldShowHelp) {
-      if (q.match(/(experte)/i)) {
+      if (q.match(/(experte|mensch|profi)/i) && q.match(/(experte|mensch|profi)/i)[0]) {
         context.openQuestionIfShouldShowHelp = 'expert';
       }else if (q.match(/(hilfe|ja)/i)) {
         db.clearContext(userId);
@@ -13,7 +13,7 @@ exports.addToContext = function(db, userId, q) {
       }
       return;
     }else{
-      if (q.match(/(experte|mensch)/i) && q.match(/(experte|mensch)/i)[0]) {
+      if (q.match(/(experte|mensch|profi)/i) && q.match(/(experte|mensch|profi)/i)[0]) {
         context.wantsExpert = true;
       }
     }
