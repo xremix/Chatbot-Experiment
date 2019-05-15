@@ -89,6 +89,7 @@ exports.findAnswerFromContext = function(db, userId){
       -  Was ist das Produkt PR-12030?
       -  Ich habe eine Frage zu einem Produkt
       -  Ich möchte den Preis von einem Produkt wissen
+      -  Ich habe eine Frage zu einer Bestellung
       - Dankeschön
       - Kennst Du Andi?
       - Hilfe
