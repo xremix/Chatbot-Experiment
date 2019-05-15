@@ -11,8 +11,26 @@ exports.findAnswerFromContext = function(db, userId){
 
   if(context.break) {
     db.clearContext(userId);
-    return "Tut mir leid, dass ich Dir deine Frage nicht beantworten konnte. Kann ich sonst etwas für Dich tun?";
+    return "Der Vorgang wurde abgebrochen 😢 Kann ich dir noch weiterhelfen?";
     // return "Kann ich sonst weiterhelfen?";
+  }
+
+  if(context.showHelp){
+    db.clearContext(userId);
+    return `Hier ein paar Beispiele die Du mich fragen kannst:
+- Hallo
+- Was kostet das Produkt PR-10010?
+- Was ist der Preis von Artikel PR-91231?
+- Was ist das Produkt PR-12030?
+- Ich habe eine Frage zu einem Produkt
+- Ich möchte den Preis von einem Produkt wissen
+- Ich habe eine Frage zu einer Bestellung
+- Dankeschön
+- Kennst Du Andi?
+- Hilfe
+
+Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
+    `;
   }
 
   if(context.openQuestionIfShouldShowHelp){
@@ -80,23 +98,6 @@ exports.findAnswerFromContext = function(db, userId){
       return `Hier findest Du unseren Store`;
     }
 
-    if(context.showHelp){
-      db.clearContext(userId);
-      return `Hier ein paar Beispiele die Du mich fragen kannst:
- - Hallo
- - Was kostet das Produkt PR-10010?
- - Was ist der Preis von Artikel PR-91231?
- - Was ist das Produkt PR-12030?
- - Ich habe eine Frage zu einem Produkt
- - Ich möchte den Preis von einem Produkt wissen
- - Ich habe eine Frage zu einer Bestellung
- - Dankeschön
- - Kennst Du Andi?
- - Hilfe
-
- Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
-      `;
-    }
     if(context.thanks){
       db.clearContext(userId);
       return getRandom([

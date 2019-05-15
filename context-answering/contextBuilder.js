@@ -33,7 +33,7 @@ exports.addToContext = function(db, userId, q) {
       context.sendBack = true;
     }
 
-    if (q.match(/(zurück)/i) && q.match(/(schicken)/i)) {
+    if (q.match(/(zurück.*schicken)/i)) {
       context.orderCategory = true;
       context.sendBack = true;
     }
@@ -41,7 +41,7 @@ exports.addToContext = function(db, userId, q) {
       context.orderCategory = true;
       context.deliveryStatus = true;
     }
-    if (q.match(/(wann)/i) && q.match(/(lieferung)/i)) {
+    if (q.match(/(wann.*lieferung)/i)) {
       context.orderCategory = true;
       context.deliveryStatus = true;
     }
@@ -63,7 +63,7 @@ exports.addToContext = function(db, userId, q) {
     if (q.match(/(hallo|hey|hi|servus)/i) && q.match(/(hallo|hey|hi|servus)/i)[0]){
       context.welcome = true;
     }
-    if (q.match(/(nein|halt|stop|nichts|andere frage)/i) && q.match(/(nein|halt|stop|nichts|andere frage)/i)[0]){
+    if (q.match(/(abbruch|nein|halt|stop|nichts|andere frage)/i) && q.match(/(abbruch|nein|halt|stop|nichts|andere frage)/i)[0]){
       context.break = true;
     }
     if (q.match(/wie.*geht(s|.*dir)/i)) { // TODO not working yet
