@@ -129,8 +129,14 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
       if(name.match(/(toni|andi)/i) && name.match(/(toni|andi)/i)[0]){
         return `Natürlich kenne ich ${name}... was für eine Frage. Er gehört zu meinen Erfindern!`;
       }
-      if(name.match(/(bene|chris|manu|alex)/i) && name.match(/(bene|chris|manu|alex)/i)[0]){
+      if(name.match(/(bene|chris|kolb|grumpy|alex)/i) && name.match(/(bene|chris|kolb|grumpy|alex)/i)[0]){
         return `Na klar, ${name} ist klasse... ich kenne ihn aus der Uni`;
+      }
+      if(name.match(/(Müssigmann)/i)){
+        return `Was für eine Frage... ohne ihn gäbe es mich höchstwahrscheinlich nicht`;
+      }
+      if(name.match(/(Havel)/i)){
+        return `Hätten meine Erfinder mehr auf Herr Dr. Havel gehört hätte ich jetzt wahrschienlich nicht so viele Fähler 🐞`;
       }
       return "Leider nein, habe ich noch nie gehört";
     }
