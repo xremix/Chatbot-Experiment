@@ -17,10 +17,10 @@ function getContext (userId){
   createContextIfDoesntExist(userId)
   return jsondatabase.users[userId].userContext;
 }
+
 function setContext (userId, obj){
   jsondatabase.users[userId].userContext = obj;
 }
-
 
 function clearContext (userId){
   jsondatabase.users[userId] = {userContext: {}}

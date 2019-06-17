@@ -4,7 +4,6 @@ function getRandom(answers) {
   return answers[Math.floor(Math.random() * answers.length)];
 }
 
-
 exports.getResponseByContext = function(contextStorage, userId) {
   var userContext = contextStorage.getContext(userId);
 
@@ -129,7 +128,6 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
       }
       return "Leider nein, habe ich noch nie gehört";
     }
-
 
     if (userContext.howDoing) {
       var prefix = userContext.welcome ? "Hallo. " : "";
