@@ -78,7 +78,7 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
     if (userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i) && userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i)[0]){
       userContext.break = true;
     }
-    if (userMessage.match(/(hilfe|helfen)/i) && userMessage.match(/(hilfe|helfen)/i)[0]) {
+    if (userMessage.match(/(\/start|hilfe|helfen)/i) && userMessage.match(/(\/start|hilfe|helfen)/i)[0]) {
       userContext.showHelp = true;
     }
     if (userMessage.match(/Kennst du (.* )?(\w+)?/i)) {
