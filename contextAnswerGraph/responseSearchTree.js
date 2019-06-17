@@ -124,7 +124,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
         return `Was für eine Frage... ohne ihn gäbe es mich höchstwahrscheinlich nicht`;
       }
       if (name.match(/(Havel)/i)) {
-        return `Hätten meine Erfinder mehr auf Herr Dr. Havel gehört hätte ich jetzt wahrschienlich nicht so viele Fähler 🐞`;
+        return `Hätten meine Erfinder mehr auf Herr Dr. Havel gehört, hätte ich jetzt wahrschienlich nicht so viele Fähler 🐞`;
       }
       return "Leider nein, habe ich noch nie gehört";
     }

@@ -32,7 +32,7 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
       userContext.price = true;
     }
 
-    if (userMessage.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i) && userMessage.match(/(liefer|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
+    if (userMessage.match(/(liefert|lieferbar|liefern|lager|verfügbar|versand|zeit|dauer)/i) && userMessage.match(/(liefert|lieferbar|liefern|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
       userContext.productcategory = true;
       userContext.deliveryStatus = true;
     }
