@@ -147,7 +147,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
         "Hallo, ich bin der Company Bot. Was ist dein Anliegen?",
         "Hallo, wie kann ich Dir weiter helfen?",
         "Was kann ich für Dich tun?",
-        "Hallo, kann ich dir behilflich sein?"
+        "Hallo, wie kann ich dir behilflich sein?"
       ]);
     }
     if(context.howDoing){
