@@ -32,7 +32,7 @@ app.post('/recievemessage', function (req, res) {
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
 
-  contextAssembler.addToContext(db, userId, userMessage);
+  contextAssembler.extendUserContext(db, userId, userMessage);
   var replyMessage = responseSearchTree.findAnswerFromContext(db, userId);
 
   telegramService.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
