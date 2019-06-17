@@ -19,6 +19,10 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
       }
     }
 
+    // Product / Order Delivery Status
+    if (userMessage.match(/(lieferstatus|liefert|lieferbar|liefern|lager|verfügbar|versand|zeit|dauer)/i) && userMessage.match(/(lieferstatus|liefert|lieferbar|liefern|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
+      userContext.deliveryStatus = true;
+    }
     // Product Category
     if (userMessage.match(/(PR-[0-9]+)/i)) {
       userContext.product = userMessage.match(/(PR-[0-9]+)/i)[0];
@@ -30,11 +34,6 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
     if (userMessage.match(/(preis|kostet|kosten)/i) && userMessage.match(/(preis|kostet|kosten)/i)[0]) {
       userContext.productcategory = true;
       userContext.price = true;
-    }
-
-    if (userMessage.match(/(liefert|lieferbar|liefern|lager|verfügbar|versand|zeit|dauer)/i) && userMessage.match(/(liefert|lieferbar|liefern|lager|verfügbar|versand|zeit|dauer)/i)[0]) {
-      userContext.productcategory = true;
-      userContext.deliveryStatus = true;
     }
 
     // Orders
@@ -49,16 +48,12 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
       userContext.orderCategory = true;
       userContext.sendBack = true;
     }
-    if (userMessage.match(/(lieferstatus)/i)) {
-      userContext.orderCategory = true;
-      userContext.deliveryStatus = true;
-    }
     if (userMessage.match(/(wann.*lieferung)/i)) {
       userContext.orderCategory = true;
       userContext.deliveryStatus = true;
     }
-
     if (userMessage.match(/(R[0-9]+)/i)) {
+      userContext.orderCategory = true;
       userContext.orderNumber = userMessage.match(/(R[0-9]+)/i)[0];
     }
 

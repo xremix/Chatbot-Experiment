@@ -44,14 +44,13 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
   }
 
   if (userContext.orderCategory) {
-  if (userContext.orderNumber && userContext.sendBack) {
-    contextStorage.clearContext(userId);
-    return `Die Lieferung ${context.orderNumber} wird storniert. Sie erhalten in Kürze eine E-Mail mit Details zum rückversand.`;
-  }
-
+    if (userContext.orderNumber && userContext.sendBack) {
+      contextStorage.clearContext(userId);
+      return `Die Lieferung ${context.orderNumber} wird storniert. Sie erhalten in Kürze eine E-Mail mit Details zum rückversand.`;
+    }
     if (userContext.orderNumber && userContext.deliveryStatus) {
       contextStorage.clearContext(userId);
-      return `Die Lieferung ${userContext.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
+      return `Die Lieferung ${userContext.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein 📦💨`;
     }
     if (userContext.deliveryStatus) {
       return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann helfe ich ihnen gerne zu ihrer Bestellung weiter.`;
@@ -62,8 +61,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
     if (!userContext.orderNumber ) {
       return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann helfe ich gerne weiter.`;
     }
-    return `Möchten sie den Lieferstatus oder eine Reklamation zu ihrer Besetllung?`;
-
+    return `Möchten sie den Lieferstatus oder eine Reklamation zu ihrer Bestellung?`;
   } else if (userContext.productcategory) {
     if (userContext.product && userContext.price) {
       contextStorage.clearContext(userId);
@@ -81,6 +79,9 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
       return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
     }
   } else {
+    if (userContext.deliveryStatus) {
+      return 'Möchten Sie den Lieferstatus zu einer Bestellung wissen, oder Lieferoptionen zu einem Produkt?';
+    }
     if (userContext.orderNumber) {
       return `Sie haben eine Bestellnummer angegeben. Möchten sie den Lieferstatus oder eine Reklamation zu der Bestellung?`;
     }
