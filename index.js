@@ -1,10 +1,10 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var telegram = require('./telegram');
+var telegramService = require('./telegramApi/telegramService');
 
-var db = require('./context-answering/database');
-var contextBuilder = require('./context-answering/contextBuilder');
-var answerFinder = require('./context-answering/answerFinder');
+var db = require('./db/contextStorage');
+var contextAssembler = require('./contextAnswerGraph/contextAssembler');
+var responseSearchTree = require('./contextAnswerGraph/responseSearchTree');
 
 var app = express();
 
@@ -21,14 +21,14 @@ app.get('/', function (req, res) {
 
 app.get('/test', function (req, res) {
   console.log("Got a /test request");
-  telegram.getUpdates(process.env.TOKEN, function(){
+  telegramService.getUpdates(process.env.TOKEN, function(){
     res.send('Done');
   });
 });
 
 app.get('/init', function (req, res) {
   console.log("Got a /init request");
-  telegram.setWebhook(process.env.TOKEN, process.env.WEBHOOKURL, function(response, body){
+  telegramService.setWebhook(process.env.TOKEN, process.env.WEBHOOKURL, function(response, body){
     res.send(body);
   });
 });
@@ -39,10 +39,10 @@ app.post('/recievemessage', function (req, res) {
   var userMessage = req.body.message.text;
   var userId = req.body.message.from.id;
 
-  contextBuilder.addToContext(db, userId, userMessage);
-  var replyMessage = answerFinder.findAnswerFromContext(db, userId);
+  contextAssembler.addToContext(db, userId, userMessage);
+  var replyMessage = responseSearchTree.findAnswerFromContext(db, userId);
 
-  telegram.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
+  telegramService.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
     res.send(replyMessage);
   });
 

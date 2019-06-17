@@ -1,22 +1,21 @@
-
-var telegram = require('../telegram');
+var telegram = require('../telegramApi/telegramService');
 
 function getRandom(answers){
   return answers[Math.floor(Math.random() * answers.length)];
 }
 
 
-exports.findAnswerFromContext = function(db, userId){
-  var context = db.getContext(userId);
+exports.findAnswerFromContext = function(contextStorage, userId){
+  var context = contextStorage.getContext(userId);
 
   if(context.break) {
-    db.clearContext(userId);
+    contextStorage.clearContext(userId);
     return "Der Vorgang wurde abgebrochen 😢 Kann ich dir noch weiterhelfen?";
     // return "Kann ich sonst weiterhelfen?";
   }
 
   if(context.showHelp){
-    db.clearContext(userId);
+    contextStorage.clearContext(userId);
     return `Hier ein paar Beispiele die Du mich fragen kannst:
 - Hallo
 - Wie geht es Dir?
@@ -31,27 +30,27 @@ exports.findAnswerFromContext = function(db, userId){
 - Kennst Du Andi?
 - Hilfe
 
-Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
+Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage.version}
     `;
   }
 
   if(context.openQuestionIfShouldShowHelp){
     if(context.openQuestionIfShouldShowHelp === 'expert'){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return 'Bitte wende Dich an @Akofom oder @thoffmannfom';
     }
-    db.clearContext(userId);
+    contextStorage.clearContext(userId);
     return "Falls ich sonst noch etwas für Dich tun kann, sag gerne bescheid... :-(";
   }
 
   if(context.orderCategory) {
   if(context.orderNumber && context.sendBack){
-    db.clearContext(userId);
+    contextStorage.clearContext(userId);
     return `Die Lieferung ${context.orderNumber} wird storniert. Sie erhalten in Kürze eine E-Mail mit Details zum rückversand.`;
   }
 
     if(context.orderNumber && context.deliveryStatus){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return `Die Lieferung ${context.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
     }
     if(context.deliveryStatus){
@@ -67,14 +66,14 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
 
   }else if(context.productcategory) {
     if(context.product && context.price) {
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return `Das Produkt ${context.product} kostet 123€`;
       // return "Kann ich sonst weiterhelfen?";
     } else if(context.product && context.general) {
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return "Das Produkt ist ein Schraubenzieher. Schaue hier für mehr Informationen: http://link.xyz";
     } else if(context.product && context.deliveryStatus) {
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return "Das Produkt kann innerhalb von 2 Tagen geliefert werden. Es sind nur noch wenige Produkte verfügbar";
     } else if(context.product) {
       return "Was möchtest Du über das Produkt wissen? Ich kann Dir Informationen zu dem Preis, Lieferstatus oder allgemeine Informationen geben";
@@ -82,38 +81,37 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
       return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
     }
   } else {
-
     if(context.orderNumber){
       return `Sie haben eine Bestellnummer angegeben. Möchten sie den Lieferstatus oder eine Reklamation zu der Bestellung?`;
     }
 
     if(context.wantsExpert){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return 'Bitte wende Dich an @Akofom oder @thoffmannfom';
     }
 
     if(context.contactInformation){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return `Du kannst uns jederzeit unter 089123123 zu den folgenden Zeiten anrufen
       Mo-Fr: 09-13 Uhr
       Sa: 10-12 Uhr`;
     }
 
     if(context.findLocation){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       telegram.sendLocation(process.env.TOKEN, userId, 48.120120, 11.565138, null);
       return `Hier findest Du unseren Store`;
     }
 
     if(context.thanks){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return getRandom([
         "Gerne, kann ich sonst noch etwas für Dich tun?",
         "Klar, ich bin immer für Dich da"
       ]);
     }
     if(context.howDoYouDo){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       getRandom([
         "Alles fit... danke der Nachfrage",
         "Läuft... und bei Dir?",
@@ -125,7 +123,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
 
     if(context.doYouKnow){
       var name = context.doYouKnow;
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       if(name.match(/(toni|andi)/i) && name.match(/(toni|andi)/i)[0]){
         return `Natürlich kenne ich ${name}... was für eine Frage. Er gehört zu meinen Erfindern!`;
       }
@@ -142,7 +140,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
     }
 
     if(context.welcome){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return getRandom([
         "Hallo, ich bin der Company Bot. Was ist dein Anliegen?",
         "Hallo, wie kann ich Dir weiter helfen?",
@@ -151,7 +149,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${db.version}
       ]);
     }
     if(context.howDoing){
-      db.clearContext(userId);
+      contextStorage.clearContext(userId);
       return getRandom([
         "Könnte besser sein... ein paar Kollegen aus der Kundenbetreuung mögen mich nicht",
         "Super, bin aber gerade etwas im Stress... ich kümmere mich derzeit um 37 Kunden parallel 🏃💨",

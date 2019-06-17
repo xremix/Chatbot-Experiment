@@ -1,13 +1,13 @@
-exports.addToContext = function(db, userId, q) {
-  context = db.getContext(userId);
+exports.addToContext = function(contextStorage, userId, q) {
+  context = contextStorage.getContext(userId);
 
     // Replies
     if (context.openQuestionIfShouldShowHelp) {
       if (q.match(/(experte|mensch|profi)/i) && q.match(/(experte|mensch|profi)/i)[0]) {
         context.openQuestionIfShouldShowHelp = 'expert';
       }else if (q.match(/(hilfe|ja)/i)) {
-        db.clearContext(userId);
-        context = db.getContext(userId);
+        contextStorage.clearContext(userId);
+        context = contextStorage.getContext(userId);
         context.showHelp = true;
         context.openQuestionIfShouldShowHelp = 'help';
       }else{
