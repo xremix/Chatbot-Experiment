@@ -132,12 +132,13 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
 
     if (userContext.howDoing) {
       var prefix = userContext.welcome ? "Hallo. " : "";
+      var postfix = userContext.welcome ? " Kann ich Dir weiterhelfen?" : "";
       contextStorage.clearContext(userId);
       return getRandom([
-        prefix + "Danke der Nachfrage. Es könnte besser sein... ein paar Kollegen aus der Kundenbetreuung mögen mich nicht sonderlich 🤖",
-        prefix + "Mir geht es super, bin aber gerade etwas im Stress... ich kümmere mich derzeit um 37 Kunden parallel 🏃💨",
-        prefix + "Mir geht es einfach toll, gestern hatte ich Geburtstag und habe einen neuen Arbeitsspeicher geschenkt bekommen 🎂",
-        prefix + "Ich könnte etwas Urlaub gebrauchen 🥽🧳 Ich arbeite seit dem 2. Mai ohne Pause 👨‍💻"
+        prefix + "Danke der Nachfrage. Es könnte besser sein... ein paar Kollegen aus der Kundenbetreuung mögen mich nicht sonderlich 🤖" + postfix,
+        prefix + "Mir geht es super, bin aber gerade etwas im Stress... ich kümmere mich derzeit um 37 Kunden parallel 🏃💨" + postfix,
+        prefix + "Mir geht es einfach toll, gestern hatte ich Geburtstag und habe einen neuen Arbeitsspeicher geschenkt bekommen 🎂" + postfix,
+        prefix + "Ich könnte etwas Urlaub gebrauchen 🥽🧳 Ich arbeite seit dem 2. Mai ohne Pause 👨‍💻" + postfix,
       ]);
     }
 
