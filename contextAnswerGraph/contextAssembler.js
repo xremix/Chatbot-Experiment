@@ -70,7 +70,7 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
     if (userMessage.match(/(wie geht|alles klar.*\?|alles fit)/i) && userMessage.match(/(wie geht|alles klar.*\?|alles fit)/i)[0]){
       userContext.howDoing = true;
     }
-    if (userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i) && userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i)[0]){
+    if (userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere|kein|andere frage)/i) && userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere|kein|andere frage)/i)[0]){
       userContext.break = true;
     }
     if (userMessage.match(/(\/start|hilfe|helfen)/i) && userMessage.match(/(\/start|hilfe|helfen)/i)[0]) {

@@ -3,25 +3,21 @@ exports.setContext = setContext;
 exports.clearContext = clearContext;
 exports.version = '0.4.32';
 
-var jsondatabase = {
-  users:{
-
-  }
-};
+var userContextDatabase = {};
 
 function createContextIfDoesntExist(userId){
-  if(!jsondatabase.users[userId]){ jsondatabase.users[userId] = {userContext: {}} }
+  if(!userContextDatabase[userId]){ userContextDatabase[userId] = {userContext: {}} }
 }
 
 function getContext (userId){
   createContextIfDoesntExist(userId)
-  return jsondatabase.users[userId].userContext;
+  return userContextDatabase[userId].userContext;
 }
 
 function setContext (userId, obj){
-  jsondatabase.users[userId].userContext = obj;
+  userContextDatabase[userId].userContext = obj;
 }
 
 function clearContext (userId){
-  jsondatabase.users[userId] = {userContext: {}}
+  userContextDatabase[userId] = {userContext: {}}
 }
