@@ -75,7 +75,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
     } else if(userContext.product && userContext.deliveryStatus) {
       contextStorage.clearContext(userId);
       return "Das Produkt kann innerhalb von 2 Tagen geliefert werden. Es sind nur noch wenige Produkte verfügbar";
-    } else if(context.product) {
+    } else if(userContext.product) {
       return "Was möchtest Du über das Produkt wissen? Ich kann Dir Informationen zu dem Preis, Lieferstatus oder allgemeine Informationen geben";
     } else {
       return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
