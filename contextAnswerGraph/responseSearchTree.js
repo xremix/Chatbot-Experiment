@@ -54,7 +54,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
       return `Die Lieferung ${userContext.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
     }
     if (userContext.deliveryStatus) {
-      return `Ich gebe ihnen gerne ein Update zum Lieferstatus ihrer Bestellung. Bitte geben sie die Bestellnummer im Format R102310230 an. Dann können wir ihre Bestellung gerne stornieren.`;
+      return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann helfe ich ihnen gerne zu ihrer Bestellung weiter.`;
     }
     if (userContext.sendBack) {
       return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann können wir ihre Bestellung gerne stornieren.`;
