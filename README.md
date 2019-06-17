@@ -15,7 +15,11 @@ This is a experiment and case study for a chatbot
 
 The deployment of the demo project is going to be done automatically by using continuous delivery.
 
-### Alternate
+## Alternate
 To deploy the App to azure manually run
 
 - `az webapp up -n NAMEDERAPP`
+
+# Code Structure
+
+![docs/UML-Experiment.png](docs/UML-Experiment.png)
