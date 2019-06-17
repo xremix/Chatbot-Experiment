@@ -1,20 +1,19 @@
 exports.extendUserContext = function(contextStorage, userId, userMessage) {
   userContext = contextStorage.getContext(userId);
-
     // Replies
     if (userContext.openQuestionIfShouldShowHelp) {
       if (userMessage.match(/(experte|mensch|profi)/i) && userMessage.match(/(experte|mensch|profi)/i)[0]) {
         userContext.openQuestionIfShouldShowHelp = 'expert';
-      }else if (userMessage.match(/(hilfe|ja)/i)) {
+      } else if (userMessage.match(/(hilfe|ja)/i)) {
         contextStorage.clearContext(userId);
         userContext = contextStorage.getContext(userId);
         userContext.showHelp = true;
         userContext.openQuestionIfShouldShowHelp = 'help';
-      }else{
+      } else {
         userContext.openQuestionIfShouldShowHelp = 'nothing';
       }
       return;
-    }else{
+    } else {
       if (userMessage.match(/(experte|mensch|profi)/i) && userMessage.match(/(experte|mensch|profi)/i)[0]) {
         userContext.wantsExpert = true;
       }
@@ -79,9 +78,6 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
     if (userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i) && userMessage.match(/(abbrechen|abbruch|nein|halt|stop|nichts|andere frage)/i)[0]){
       userContext.break = true;
     }
-    if (userMessage.match(/wie.*geht(s|.*dir)/i)) { // TODO not working yet
-      userContext.howDoYouDo = true;
-    }
     if (userMessage.match(/(hilfe|helfen)/i) && userMessage.match(/(hilfe|helfen)/i)[0]) {
       userContext.showHelp = true;
     }
@@ -91,5 +87,5 @@ exports.extendUserContext = function(contextStorage, userId, userMessage) {
     if (userMessage.match(/kontakt|telefon|telephon|anrufen/i) && userMessage.match(/kontakt|telefon|telephon|anrufen/i)[0]) {
       userContext.contactInformation = true;
     }
-    return userMessage;
+    return userContext;
 }
