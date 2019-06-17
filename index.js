@@ -33,7 +33,7 @@ app.post('/recievemessage', function (req, res) {
   var userId = req.body.message.from.id;
 
   contextAssembler.extendUserContext(db, userId, userMessage);
-  var replyMessage = responseSearchTree.findAnswerFromContext(db, userId);
+  var replyMessage = responseSearchTree.getResponseByContext(db, userId);
 
   telegramService.sendMessage(process.env.TOKEN, userId, replyMessage, function(){
     res.send(replyMessage);
