@@ -112,7 +112,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
     }
 
     if (userContext.doYouKnow) {
-      var name = context.doYouKnow;
+      var name = userContext.doYouKnow;
       contextStorage.clearContext(userId);
       if (name.match(/(toni|andi)/i) && name.match(/(toni|andi)/i)[0]) {
         return `Natürlich kenne ich ${name}... was für eine Frage. Er gehört zu meinen Erfindern!`;
