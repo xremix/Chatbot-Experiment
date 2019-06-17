@@ -19,13 +19,6 @@ app.get('/', function (req, res) {
   res.send('Bot Service is up! You are seeing version v' + db.version);
 });
 
-app.get('/test', function (req, res) {
-  console.log("Got a /test request");
-  telegramService.getUpdates(process.env.TOKEN, function(){
-    res.send('Done');
-  });
-});
-
 app.get('/init', function (req, res) {
   console.log("Got a /init request");
   telegramService.setWebhook(process.env.TOKEN, process.env.WEBHOOKURL, function(response, body){

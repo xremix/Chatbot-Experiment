@@ -5,16 +5,16 @@ function getRandom(answers){
 }
 
 
-exports.findAnswerFromContext = function(contextStorage, userId){
-  var context = contextStorage.getContext(userId);
+exports.getResponseByContext = function(contextStorage, userId){
+  var userContext = contextStorage.getContext(userId);
 
-  if(context.break) {
+  if(userContext.break) {
     contextStorage.clearContext(userId);
     return "Der Vorgang wurde abgebrochen 😢 Kann ich dir noch weiterhelfen?";
     // return "Kann ich sonst weiterhelfen?";
   }
 
-  if(context.showHelp){
+  if(userContext.showHelp){
     contextStorage.clearContext(userId);
     return `Hier ein paar Beispiele die Du mich fragen kannst:
 - Hallo
@@ -34,8 +34,8 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
     `;
   }
 
-  if(context.openQuestionIfShouldShowHelp){
-    if(context.openQuestionIfShouldShowHelp === 'expert'){
+  if(userContext.openQuestionIfShouldShowHelp){
+    if(userContext.openQuestionIfShouldShowHelp === 'expert'){
       contextStorage.clearContext(userId);
       return 'Bitte wende Dich an @Akofom oder @thoffmannfom';
     }
@@ -43,36 +43,36 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
     return "Falls ich sonst noch etwas für Dich tun kann, sag gerne bescheid... :-(";
   }
 
-  if(context.orderCategory) {
-  if(context.orderNumber && context.sendBack){
+  if(userContext.orderCategory) {
+  if(userContext.orderNumber && userContext.sendBack){
     contextStorage.clearContext(userId);
     return `Die Lieferung ${context.orderNumber} wird storniert. Sie erhalten in Kürze eine E-Mail mit Details zum rückversand.`;
   }
 
-    if(context.orderNumber && context.deliveryStatus){
+    if(userContext.orderNumber && userContext.deliveryStatus){
       contextStorage.clearContext(userId);
-      return `Die Lieferung ${context.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
+      return `Die Lieferung ${userContext.orderNumber} befindet sich auf dem weg und sollte morgen bei ihnen sein.`;
     }
-    if(context.deliveryStatus){
+    if(userContext.deliveryStatus){
       return `Ich gebe ihnen gerne ein Update zum Lieferstatus ihrer Bestellung. Bitte geben sie die Bestellnummer im Format R102310230 an. Dann können wir ihre Bestellung gerne stornieren.`;
     }
-    if(context.sendBack){
+    if(userContext.sendBack){
       return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann können wir ihre Bestellung gerne stornieren.`;
     }
-    if(!context.orderNumber ){
+    if(!userContext.orderNumber ){
       return `Bitte geben sie die Bestellnummer im Format R102310230 an. Dann helfe ich gerne weiter.`;
     }
     return `Möchten sie den Lieferstatus oder eine Reklamation zu ihrer Besetllung?`;
 
-  }else if(context.productcategory) {
-    if(context.product && context.price) {
+  }else if(userContext.productcategory) {
+    if(userContext.product && userContext.price) {
       contextStorage.clearContext(userId);
-      return `Das Produkt ${context.product} kostet 123€`;
+      return `Das Produkt ${userContext.product} kostet 123€`;
       // return "Kann ich sonst weiterhelfen?";
-    } else if(context.product && context.general) {
+    } else if(userContext.product && userContext.general) {
       contextStorage.clearContext(userId);
       return "Das Produkt ist ein Schraubenzieher. Schaue hier für mehr Informationen: http://link.xyz";
-    } else if(context.product && context.deliveryStatus) {
+    } else if(userContext.product && userContext.deliveryStatus) {
       contextStorage.clearContext(userId);
       return "Das Produkt kann innerhalb von 2 Tagen geliefert werden. Es sind nur noch wenige Produkte verfügbar";
     } else if(context.product) {
@@ -81,36 +81,36 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
       return "Um welche Artikelnummer handelt es sich? Artikelnummern sehen beispielsweise wiefolgt aus: PR-9911231";
     }
   } else {
-    if(context.orderNumber){
+    if(userContext.orderNumber){
       return `Sie haben eine Bestellnummer angegeben. Möchten sie den Lieferstatus oder eine Reklamation zu der Bestellung?`;
     }
 
-    if(context.wantsExpert){
+    if(userContext.wantsExpert){
       contextStorage.clearContext(userId);
       return 'Bitte wende Dich an @Akofom oder @thoffmannfom';
     }
 
-    if(context.contactInformation){
+    if(userContext.contactInformation){
       contextStorage.clearContext(userId);
       return `Du kannst uns jederzeit unter 089123123 zu den folgenden Zeiten anrufen
       Mo-Fr: 09-13 Uhr
       Sa: 10-12 Uhr`;
     }
 
-    if(context.findLocation){
+    if(userContext.findLocation){
       contextStorage.clearContext(userId);
       telegram.sendLocation(process.env.TOKEN, userId, 48.120120, 11.565138, null);
       return `Hier findest Du unseren Store`;
     }
 
-    if(context.thanks){
+    if(userContext.thanks){
       contextStorage.clearContext(userId);
       return getRandom([
         "Gerne, kann ich sonst noch etwas für Dich tun?",
         "Klar, ich bin immer für Dich da"
       ]);
     }
-    if(context.howDoYouDo){
+    if(userContext.howDoYouDo){
       contextStorage.clearContext(userId);
       getRandom([
         "Alles fit... danke der Nachfrage",
@@ -121,7 +121,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
       ]);
     }
 
-    if(context.doYouKnow){
+    if(userContext.doYouKnow){
       var name = context.doYouKnow;
       contextStorage.clearContext(userId);
       if(name.match(/(toni|andi)/i) && name.match(/(toni|andi)/i)[0]){
@@ -139,7 +139,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
       return "Leider nein, habe ich noch nie gehört";
     }
 
-    if(context.welcome){
+    if(userContext.welcome){
       contextStorage.clearContext(userId);
       return getRandom([
         "Hallo, ich bin der Company Bot. Was ist dein Anliegen?",
@@ -148,7 +148,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
         "Hallo, wie kann ich dir behilflich sein?"
       ]);
     }
-    if(context.howDoing){
+    if(userContext.howDoing){
       contextStorage.clearContext(userId);
       return getRandom([
         "Könnte besser sein... ein paar Kollegen aus der Kundenbetreuung mögen mich nicht",
@@ -159,6 +159,6 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
     }
   }
 
-  context.openQuestionIfShouldShowHelp = true;
+  userContext.openQuestionIfShouldShowHelp = true;
   return "Leider habe ich das nicht verstanden. Soll ich Dir die Hilfe zeigen, oder möchtest Du mit einem Experten sprechen?";
 }
