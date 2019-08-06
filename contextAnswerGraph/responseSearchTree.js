@@ -29,7 +29,7 @@ exports.getResponseByContext = function(contextStorage, userId) {
 - Kennst Du Andi?
 - Hilfe
 
-Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage.version}
+Du sprichst gerade übrigens mit dem ExperiBot in der Version ${contextStorage.version}
     `;
   }
 
@@ -144,7 +144,7 @@ Du sprichst gerade übrigens mit dem Company Bot in der Version ${contextStorage
     if (userContext.welcome) {
       contextStorage.clearContext(userId);
       return getRandom([
-        "Hallo, ich bin der Company Bot. Was ist dein Anliegen?",
+        "Hallo, ich bin der ExperiBot. Was ist dein Anliegen?",
         "Hallo, wie kann ich Dir weiter helfen?",
         "Was kann ich für Dich tun?",
         "Hallo, wie kann ich dir behilflich sein?"
